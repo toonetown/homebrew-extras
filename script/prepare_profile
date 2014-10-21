@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ ! -d "${1}" ]; then
+    echo "Usage: $0 <homebrew_prefix>"
+    exit 1
+fi
+
+PROF_D="${1}/etc/profile.d"
+PROF="/etc/profile"
+if [ `grep -F "${PROF_D}" "${PROF}" | wc -l` -eq 0 ]; then
+    echo "[ -d \"${PROF_D}\" ] && for j in \$(ls \"${PROF_D}\"); do . \"${PROF_D}/\${j}\"; done" | \
+         sudo /usr/bin/tee -a "${PROF}"
+fi
