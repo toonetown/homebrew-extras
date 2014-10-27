@@ -8,7 +8,7 @@ class AndroidEnv < Formula
   depends_on "toonetown-extras"
   homepage 'https://github.com/toonetown/homebrew-extras/'
   url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
-  sha1 "3cfb485207c478ddb4ed6f28ccde4ee35bdde215"
+  sha1 "de20bcadb68f94135bf22a0b07523a5dd2f9d61f"
 
   def install
     (prefix+"etc/profile.d").install '20-android-env'
