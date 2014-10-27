@@ -1,7 +1,7 @@
 require 'pathname'
 require 'formula'
 
-require Pathname(__FILE__).realpath.dirname.join('lib', 'version')
+require Pathname(__FILE__).realpath.dirname.join('../lib', 'version')
 
 class ToonetownExtras < Formula
   homepage 'https://github.com/toonetown/homebrew-extras/'
