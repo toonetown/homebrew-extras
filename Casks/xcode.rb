@@ -13,6 +13,9 @@ class Xcode < Cask
     # Select this version of xcode
     ohai "Selecting default version of Xcode - please enter your password"
     system '/usr/bin/sudo', '-E', '--', '/usr/bin/xcode-select', '--switch', destination_path.join("Xcode.app")
+
+    ohai "Checking that license has been agreed to"
+    system '/usr/bin/sudo', '-E', '--', '/usr/bin/xcrun', '--show-sdk-path'
   end
   
   uninstall_postflight do
