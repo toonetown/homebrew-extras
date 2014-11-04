@@ -7,6 +7,8 @@ class AndroidUtil < Formula
   head 'https://github.com/toonetown/android-util.git', :branch => 'master'
   depends_on "android-sdk"
   
+  skip_clean 'bin'
+  
   def install
     prefix.install 'bin'
   end
