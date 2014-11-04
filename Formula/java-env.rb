@@ -2,13 +2,13 @@ require 'pathname'
 require 'formula'
 
 class JavaEnv < Formula
-  version "1.0"
+  version "1.1"
   env_file = "10-java-env"
   
   depends_on "toonetown-extras"
   homepage 'https://github.com/toonetown/homebrew-extras/'
   url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
-  sha1 "35019f7d64c4d767d98ba9c3abe3a9e5ff034407"
+  sha1 "7f6e45ca45db465bd8e090dbfd6b6ca7f975fe7a"
 
   def install
     (prefix+"etc/profile.d").install '10-java-env'
