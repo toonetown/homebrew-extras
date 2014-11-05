@@ -18,5 +18,5 @@ if [ -z "${SCRIPT_NAME}" ]; then
     }
     exit 1
 else
-    ${CURL} "${SCRIPT_SERVER_PATH}/${SCRIPT_NAME}" | /bin/bash -s $@
+    ${CURL} "${SCRIPT_SERVER_PATH}/${SCRIPT_NAME}" | /bin/bash -s -- $@
 fi
