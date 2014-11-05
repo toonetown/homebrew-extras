@@ -19,6 +19,7 @@ class ToonetownExtras < Formula
     prefix.install 'bin'
     (bin+'brewcask-outdated.rb').chmod 0755
     (bin+'brewcask-upgrade.rb').chmod 0755
+    (bin+'brew-script').chmod 0755
     
     ohai "Preparing profile directory - please enter your password"
     system '/bin/bash', 'script/prepare_profile', "#{HOMEBREW_PREFIX}"
