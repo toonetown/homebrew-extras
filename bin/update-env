@@ -15,20 +15,24 @@ elif [ "${1}" != "pre" -a "${1}" != "post" -a "${1}" != "del" ]; then
     return 1
 elif [ -n "${3}" ]; then
     _s="${4:-:}"
+    _o="$(echo "${!2}" | sed -E "s${_s}\\${_s}+${_s}\\${_s}${_s}g" | \
+                         sed -e "s${_s}^\\${_s}${_s}${_s}" -e "s${_s}\\${_s}\$${_s}${_s}")"
     if [ "${1}" == "pre" -o "${1}" == "post" ]; then
-        if [ -z "${!2}" ]; then
+        if [ -z "${_o}" ]; then
             _n="${3}"
-        elif echo "${_s}${!2}${_s}" | grep -Fv "${_s}${3}${_s}" >/dev/null; then
-            [ "${1}" == "pre" ] && _n="${3}${_s}${!2}" || _n="${!2}${_s}${3}"
+        elif echo "${_s}${_o}${_s}" | grep -Fv "${_s}${3}${_s}" >/dev/null; then
+            [ "${1}" == "pre" ] && _n="${3}${_s}${_o}" || _n="${_o}${_s}${3}"
         else
-            _n="${!2}"
+            _n="${_o}"
         fi
     else
-        _n="$(echo "${_s}${!2}${_s}" | sed -e "s${_s}\\${_s}${3}\\${_s}${_s}\\${_s}${_s}g")"
+        _n="$(echo "${_s}${_o}${_s}" | sed -e "s${_s}\\${_s}${3}\\${_s}${_s}\\${_s}${_s}g")"
     fi
     _n="$(echo "${_n}" | sed -E "s${_s}\\${_s}+${_s}\\${_s}${_s}g" | \
                          sed -e "s${_s}^\\${_s}${_s}${_s}" -e "s${_s}\\${_s}\$${_s}${_s}")"
-    if [ -z "${_n}" ]; then unset ${2}; else [ "${_n}" != "${!2}" ] && export ${2}="${_n}"; fi
+    if [ -z "${_n}" ]; then unset ${2}; else [ "${_n}" != "${_o}" ] && export ${2}="${_n}"; fi
+    [ -x /usr/libexec/path_helper -a "${2}" == "PATH" ] && eval `/usr/libexec/path_helper -s`
+    unset _o
     unset _s
     unset _n
 fi

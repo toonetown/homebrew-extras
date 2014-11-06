@@ -1,16 +1,36 @@
 #!/bin/bash
 WORK_DIR="${TMPDIR}/update-launchctl.$$"
-mkdir "${WORK_DIR}"
-trap 'rm -rf "${WORK_DIR}"' EXIT
-env > "${WORK_DIR}/before"
-source /etc/profile
-env > "${WORK_DIR}/after"
+BEFORE="${WORK_DIR}/before"
+AFTER="${WORK_DIR}/after"
+CHANGES="${WORK_DIR}/changes"
+PIPE="${TMPDIR}/launchctl-env.${USER}"
+
+[ -p "${PIPE}" ] && { echo "update-launchctl-env is already running"; exit 1; }
+
+trap 'rm -rf "${WORK_DIR}"; rm -f "${PIPE}"' EXIT
+for (( i=1; ((i-32)); i=(($i+1)) )); do trap 'rm -f "${PIPE}"' ${i}; done
+
+mkdir -p "${WORK_DIR}" || exit $?
+mkfifo "${PIPE}" || exit $?
+
+env > "${BEFORE}"
+BASH=no source /etc/profile
+env > "${AFTER}"
 
 export IFS='
 '
-for i in `grep -Fvf "${WORK_DIR}/before" "${WORK_DIR}/after"`; do
-
+for i in `grep -Fvf "${BEFORE}" "${AFTER}"`; do
     k="$(echo "${i}" | cut -d'=' -f1)"
     v="$(echo "${i}" | cut -d'=' -f2-)"
+    o="$(launchctl getenv "${k}")"
+    
+    if [ -z "${o}" ]; then
+        echo "launchctl unsetenv '${k}'"
+    else
+        echo "launchctl setenv '${k}' '${v}'"
+    fi >> "${CHANGES}"    
     launchctl setenv "${k}" "${v}"
 done
+
+read < "${PIPE}"
+[ -f "${CHANGES}" ] && /bin/bash -- "${CHANGES}"
