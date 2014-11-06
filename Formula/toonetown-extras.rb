@@ -20,8 +20,26 @@ class ToonetownExtras < Formula
     (bin+'brewcask-outdated.rb').chmod 0755
     (bin+'brewcask-upgrade.rb').chmod 0755
     (bin+'brew-script').chmod 0755
+    (bin+'update-launchctl-env').chmod 0755
     
     ohai "Preparing profile directory - please enter your password"
     system '/bin/bash', 'script/prepare_profile', "#{HOMEBREW_PREFIX}"
   end
+  
+  def plist; <<-EOS.undent
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>com.toonetown.update-launchctl-env</string>
+        <key>Program</key>
+        <string>/usr/local/bin/update-launchctl-env</string>
+        <key>RunAtLoad</key>
+        <true/>
+    </dict>
+    </plist>
+    EOS
+  end
+  
 end

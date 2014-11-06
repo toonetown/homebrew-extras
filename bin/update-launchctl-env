@@ -1,0 +1,16 @@
+#!/bin/bash
+WORK_DIR="${TMPDIR}/update-launchctl.$$"
+mkdir "${WORK_DIR}"
+trap 'rm -rf "${WORK_DIR}"' EXIT
+env > "${WORK_DIR}/before"
+source /etc/profile
+env > "${WORK_DIR}/after"
+
+export IFS='
+'
+for i in `grep -Fvf "${WORK_DIR}/before" "${WORK_DIR}/after"`; do
+
+    k="$(echo "${i}" | cut -d'=' -f1)"
+    v="$(echo "${i}" | cut -d'=' -f2-)"
+    launchctl setenv "${k}" "${v}"
+done
