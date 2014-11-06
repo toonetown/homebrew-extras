@@ -2,13 +2,13 @@ require 'pathname'
 require 'formula'
 
 class PerlLocalEnv < Formula
-  version "1.0"
+  version "1.1"
   env_file = "10-perl-local-env"
   
   depends_on "toonetown-extras"
   homepage 'https://github.com/toonetown/homebrew-extras/'
   url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
-  sha1 "bfbc1b76ac8f2a624f385f6b70704fe2edb5a60b"
+  sha1 "f26bd23756d6f07201e26488b32caac99986301d"
 
   def install
     (prefix+"etc/profile.d").install '10-perl-local-env'

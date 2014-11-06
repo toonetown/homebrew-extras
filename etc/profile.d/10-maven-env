@@ -1,4 +1,4 @@
 which mvn >/dev/null && {
 	[ -z "${M2_HOME}" ] && { M2_HOME="$(brew --prefix maven 2>/dev/null)/libexec" && export M2_HOME; }
-    export MAVEN_OPTS="${MAVEN_OPTS} -Xmx512m -Xms512m -XX:MaxPermSize=256m -Djava.awt.headless=true"
+    source update-env post MAVEN_OPTS "-Xmx512m -Xms512m -XX:MaxPermSize=256m -Djava.awt.headless=true" " "
 }

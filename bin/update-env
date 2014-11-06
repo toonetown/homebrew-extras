@@ -1,0 +1,34 @@
+#######
+# Adds to an existing environment variable - if the value does not already exist
+#
+#!/bin/bash
+if [ "X$(basename -- "${0}")X" == "Xupdate-envX" ]; then
+    echo "This script must be sourced, and not executed directly"
+    exit 1
+fi
+
+if [ -z "${1}" -o -z "${2}" ]; then
+    echo "Usage: source ${0} <pre|post|del> <variable> <value> [separator]"
+    return 1
+elif [ "${1}" != "pre" -a "${1}" != "post" -a "${1}" != "del" ]; then
+    echo "Invalid action - use 'pre', 'post', or 'del'"
+    return 1
+elif [ -n "${3}" ]; then
+    _s="${4:-:}"
+    if [ "${1}" == "pre" -o "${1}" == "post" ]; then
+        if [ -z "${!2}" ]; then
+            _n="${3}"
+        elif echo "${_s}${!2}${_s}" | grep -Fv "${_s}${3}${_s}" >/dev/null; then
+            [ "${1}" == "pre" ] && _n="${3}${_s}${!2}" || _n="${!2}${_s}${3}"
+        else
+            _n="${!2}"
+        fi
+    else
+        _n="$(echo "${_s}${!2}${_s}" | sed -e "s${_s}\\${_s}${3}\\${_s}${_s}\\${_s}${_s}g")"
+    fi
+    _n="$(echo "${_n}" | sed -E "s${_s}\\${_s}+${_s}\\${_s}${_s}g" | \
+                         sed -e "s${_s}^\\${_s}${_s}${_s}" -e "s${_s}\\${_s}\$${_s}${_s}")"
+    if [ -z "${_n}" ]; then unset ${2}; else [ "${_n}" != "${!2}" ] && export ${2}="${_n}"; fi
+    unset _s
+    unset _n
+fi
