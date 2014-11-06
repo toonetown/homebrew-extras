@@ -32,9 +32,9 @@ class ToonetownExtras < Formula
     <plist version="1.0">
     <dict>
         <key>Label</key>
-        <string>com.toonetown.update-launchctl-env</string>
+        <string>#{plist_name}</string>
         <key>Program</key>
-        <string>/usr/local/bin/update-launchctl-env</string>
+        <string>#{bin}/update-launchctl-env</string>
         <key>RunAtLoad</key>
         <true/>
     </dict>
