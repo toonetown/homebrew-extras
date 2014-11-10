@@ -1,7 +1,7 @@
 require 'formula'
 
 class PrlTools < Formula
-  version "1.3"
+  version "1.4"
   homepage 'https://github.com/toonetown/prl-tools/'
   url 'https://github.com/toonetown/prl-tools.git', :tag => "v#{version}"
   head 'https://github.com/toonetown/prl-tools.git', :branch => 'master'
