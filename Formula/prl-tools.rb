@@ -12,9 +12,10 @@ class PrlTools < Formula
     prefix.install 'bin'
   end
   
-  caveats <<-EOS.undent
+  def caveats; <<-EOS.undent
     These scripts depend on the prlctl command (which is installed by Paralles Desktop) existing in your path and 
-    Parallels Tools installed on the target VMs.  If you do not have parallels installed, you can install it using
-    'brew cask install parallels'
-  EOS
+    Parallels Tools installed on the target VMs.  If you do not have parallels installed, you can install it using:
+      'brew cask install parallels'
+    EOS
+  end
 end
