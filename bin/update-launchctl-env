@@ -4,6 +4,7 @@ BEFORE="${WORK_DIR}/before"
 AFTER="${WORK_DIR}/after"
 CHANGES="${WORK_DIR}/changes"
 PIPE="${TMPDIR}/update-launchctl.${USER}"
+RUNNING="${TMPDIR}/update-launchctl.pid"
 
 function do_stop {
     if [ -p "${PIPE}" ]; then 
@@ -22,12 +23,12 @@ if [ "${1}" == "reset" ]; then
     do_stop; 
     exit $?; 
 fi
-if [ "${1}" == "status" ]; then [ -p "${PIPE}" ] && echo "RUNNING" || echo "STOPPED"; exit 0; fi
+if [ "${1}" == "status" ]; then [ -p "${PIPE}" -a -f "${RUNNING}" ] && echo "RUNNING" || echo "STOPPED"; exit 0; fi
 
 [ -p "${PIPE}" ] && { echo "update-launchctl-env is already running" >&2; exit 1; }
 echo "Starting launchctl-env daemon..."
 
-trap 'rm -rf "${WORK_DIR}"; rm -f "${PIPE}"' EXIT
+trap 'rm -rf "${WORK_DIR}"; rm -f "${RUNNING}; rm -f "${PIPE}";' EXIT
 for (( i=1; ((i-32)); i=(($i+1)) )); do trap 'do_stop' ${i}; done
 mkdir -p "${WORK_DIR}" || exit $?
 mkfifo "${PIPE}" || exit $?
@@ -50,8 +51,13 @@ for i in `grep -Fvf "${BEFORE}" "${AFTER}"`; do
     fi >> "${CHANGES}"    
     launchctl setenv "${k}" "${v}"
 done
-echo "Waiting for signal"
-while read STATUS < "${PIPE}"; do if [ "${STATUS}" == "STOP" ]; then break; fi; done
+if [ -p "${PIPE}" ]; then
+    echo "Waiting for signal"
+    echo "$?" > "${RUNNING}"
+    while read STATUS < "${PIPE}"; do if [ "${STATUS}" == "STOP" ]; then break; fi; done
+else
+    echo "Stopped during launch" >&2
+fi
 echo "Cleaning up..."
 [ -f "${CHANGES}" ] && /bin/bash -- "${CHANGES}"
 echo "Done"
