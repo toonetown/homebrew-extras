@@ -38,6 +38,8 @@ class ToonetownExtras < Formula
         <string>#{bin}/update-launchctl-env</string>
         <key>RunAtLoad</key>
         <true/>
+        <key>KeepAlive</key>
+        <true/>
     </dict>
     </plist>
     EOS
