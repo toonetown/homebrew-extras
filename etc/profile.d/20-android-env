@@ -1,10 +1,13 @@
 # Set the SDK directory based off of homebrew
 which brew >/dev/null && {
-    if [ -d "$(brew --prefix android-sdk 2>/dev/null)" ]; then
-        export ANDROID_HOME="$(brew --prefix android-sdk)"
-    fi
-    LATEST_NDK="$(ls "$(brew --prefix)/opt/" | sed -En 's/^android-ndk-r([0-9]+[a-z]?).*$/\1/p' | sort -rn | head -n1)"
-    if [ -n "${LATEST_NDK}" -a -d "$(brew --prefix android-ndk-r${LATEST_NDK} 2>/dev/null)" ]; then
-        export ANDROID_NDK_HOME="$(brew --prefix android-ndk-r${LATEST_NDK} 2>/dev/null)"
-    fi
+    _PFX="$(brew --prefix 2>/dev/null)"
+    ANDROID_HOME="${_PFX}/opt/android-sdk"
+    [ -d "${ANDROID_HOME}" ] && export ANDROID_HOME || unset ANDROID_HOME
+    
+    # Try and find the latest NDK, if it exists
+    LATEST_NDK="$(ls "${_PFX}/opt/" | sed -En 's/^android-ndk-r([0-9]+[a-z]?).*$/\1/p' | sort -rn | head -n1)"
+    ANDROID_NDK_HOME="${_PFX}/opt/android-ndk-r${LATEST_NDK}"
+    [ -d "${ANDROID_NDK_HOME}" ] && export ANDROID_NDK_HOME || unset ANDROID_NDK_HOME
+    unset _PFX
 }
+
