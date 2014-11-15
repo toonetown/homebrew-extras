@@ -1,7 +1,7 @@
 require 'formula'
 
 class AppengineUtil < Formula
-  version "1.1"
+  version "1.2"
   homepage 'https://github.com/toonetown/appengine-util/'
   url 'https://github.com/toonetown/appengine-util.git', :tag => "v#{version}"
   head 'https://github.com/toonetown/appengine-util.git', :branch => 'master'
