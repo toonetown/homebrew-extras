@@ -1,7 +1,7 @@
 require 'formula'
 
 class Clf2elf < Formula
-  version "1.2"
+  version "1.3"
   homepage 'https://github.com/toonetown/clf2elf/'
   url 'https://github.com/toonetown/clf2elf.git', :tag => "v#{version}"
   head 'https://github.com/toonetown/clf2elf.git', :branch => 'master'
