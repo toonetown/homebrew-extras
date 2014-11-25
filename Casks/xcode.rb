@@ -1,4 +1,4 @@
-class Xcode < Cask
+cask :v1 => "xcode" do
   version '6.1'
   sha256 'a5d2910faae2222975d0940dc9c6eabc56959b4ccf0c8505ac2cb011dbbda32f'
 
