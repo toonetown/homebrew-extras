@@ -12,7 +12,7 @@ cask :v1 => "xcode" do
   postflight do
     # Select this version of xcode
     ohai "Selecting default version of Xcode - please enter your password"
-    system '/usr/bin/sudo', '-E', '--', '/usr/bin/xcode-select', '--switch', destination_path.join("Xcode.app")
+    system '/usr/bin/sudo', '-E', '--', '/usr/bin/xcode-select', '--switch', staged_path.join("Xcode.app")
 
     ohai "Agreeing to license"
     system '/usr/bin/sudo', '-E', '--', '/usr/bin/xcodebuild', '-license'
