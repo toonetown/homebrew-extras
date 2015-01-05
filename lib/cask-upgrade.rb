@@ -1,10 +1,10 @@
-require 'cask/installer'
+require 'hbc/installer'
 require Pathname(__FILE__).realpath.dirname.join('cask-outdated')
 
-class Cask
+class Hbc
   def upgrade
     ohai "Upgrading #{self}..."
-    inst = Cask::Installer.new(self)
+    inst = Hbc::Installer.new(self)
     inst.uninstall(true)
     inst.install(true)
   end
