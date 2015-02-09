@@ -1,6 +1,6 @@
 require 'rubygems'
 
-class Hbc
+class Hbc::Cask
   def installed_version?
     !installed_version.nil?
   end
