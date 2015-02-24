@@ -1,7 +1,7 @@
 require 'formula'
 
 class GitScripts < Formula
-  version "1.4"
+  version "1.5"
   homepage 'https://github.com/toonetown/git-scripts/'
   url 'https://github.com/toonetown/git-scripts.git', :tag => "v#{version}"
   head 'https://github.com/toonetown/git-scripts.git', :branch => 'master'
