@@ -15,10 +15,11 @@ class Hbc::Cask
   def update_available?
     (
       Gem::Version.correct?(version) && # we have something to compare against in Cask file ...
-      installed_version? && # ... we can determine current installed version ...
+      Gem::Version.correct?(installed_version) && # ... we can determine current installed version ...
       Gem::Version.new(installed_version) < Gem::Version.new(version) # ... compare
     ) || (
-      !Gem::Version.correct?(version) && # we can't compare numerically in the cask file
+      (!Gem::Version.correct?(version) || # we can't compare numerically in the cask file
+      !Gem::Version.correct?(installed_version)) && # we can't compare numerically in the cask file
       installed_version.to_s != version.to_s # the versions are different - we assume they installed it earlier
     )
   end
