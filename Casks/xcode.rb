@@ -1,9 +1,9 @@
 cask :v1 => "xcode" do
-  version '6.3'
-  sha256 'bd069add402a1bf2a7cd9d8b2e33a7a4d864be64eb054ed6b432ee7a7c65d0c0'
+  version '6.3.1'
+  sha256 '05b7d246cb7925dab51c84f3737213c127fef2363ae5010f42546fd833a4cf8f'
 
   dmg_download_path=ENV['DMG_DOWNLOAD_PATH'] ? ENV['DMG_DOWNLOAD_PATH'] : "file:#{ENV['HOME']}/Downloads"
-  url "#{dmg_download_path}/Xcode_6.3.dmg"
+  url "#{dmg_download_path}/Xcode_#{version}.dmg"
   homepage "http://developer.apple.com/"
   license :unknown
 
