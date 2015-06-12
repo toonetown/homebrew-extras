@@ -1,6 +1,6 @@
 cask :v1 => "xcode" do
-  version '6.3.1'
-  sha256 '05b7d246cb7925dab51c84f3737213c127fef2363ae5010f42546fd833a4cf8f'
+  version '6.3.2'
+  sha256 'b19061ea1e4ba9f8290a616b72a9e91397209d71dba09fce5395a1bc6d8ac135'
 
   dmg_download_path=ENV['DMG_DOWNLOAD_PATH'] ? ENV['DMG_DOWNLOAD_PATH'] : "file:#{ENV['HOME']}/Downloads"
   url "#{dmg_download_path}/Xcode_#{version}.dmg"
@@ -25,7 +25,7 @@ cask :v1 => "xcode" do
   end
   
   caveats <<-EOS.undent
-    You must specify a location for the download loctaions by setting the
+    You must specify a location for the download files by setting the
     environment variable 'DMG_DOWNLOAD_PATH'.  This can be specified as a
     local path (using the file:// scheme) or other URL, and will be used in 
     the url for this cask. It defaults to ${HOME}/Downloads
