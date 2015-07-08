@@ -7,7 +7,7 @@ cask :v1 => "xcode-beta" do
   homepage "http://developer.apple.com/"
   license :unknown
 
-  app 'Xcode.app'
+  app 'Xcode-beta.app'
   
   postflight do
     # Select this version of xcode
