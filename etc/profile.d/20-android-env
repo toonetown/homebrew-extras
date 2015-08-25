@@ -5,9 +5,12 @@ which brew >/dev/null && {
     [ -d "${ANDROID_HOME}" ] && export ANDROID_HOME || unset ANDROID_HOME
     
     # Try and find the latest NDK, if it exists
-    LATEST_NDK="$(ls "${_PFX}/opt/" | sed -En 's/^android-ndk-r([0-9]+[a-z]?).*$/\1/p' | sort -rn | head -n1)"
-    ANDROID_NDK_HOME="${_PFX}/opt/android-ndk-r${LATEST_NDK}"
-    [ -d "${ANDROID_NDK_HOME}" ] && export ANDROID_NDK_HOME || unset ANDROID_NDK_HOME
+    ANDROID_NDK_HOME="${_PFX}/opt/android-ndk"
+    [ -d "${ANDROID_NDK_HOME}" ] && export ANDROID_NDK_HOME || {
+        LATEST_NDK="$(ls "${_PFX}/opt/" | sed -En 's/^android-ndk-r([0-9]+[a-z]?).*$/\1/p' | sort -rn | head -n1)"
+        ANDROID_NDK_HOME="${_PFX}/opt/android-ndk-r${LATEST_NDK}"
+        [ -d "${ANDROID_NDK_HOME}" ] && export ANDROID_NDK_HOME || unset ANDROID_NDK_HOME
+    }
     unset _PFX
 }
 
