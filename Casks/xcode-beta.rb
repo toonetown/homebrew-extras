@@ -1,9 +1,9 @@
 cask :v1 => "xcode-beta" do
-  version '7.0-b5'
-  sha256 '19faf7b1fb39d484aa7df96d5fe76b454ceef8a953191bf3d8ba92943e26948e'
+  version '7.0-b6'
+  sha256 '3a5582b85901bb12f87957785dc29b7789bd01f6b51521286b1036688dd0b127'
 
   dmg_download_path=ENV['DMG_DOWNLOAD_PATH'] ? ENV['DMG_DOWNLOAD_PATH'] : "file:#{ENV['HOME']}/Downloads"
-  url "#{dmg_download_path}/Xcode_7_beta_5.dmg"
+  url "#{dmg_download_path}/Xcode_7_beta_6.dmg"
   homepage "http://developer.apple.com/"
   license :unknown
 
