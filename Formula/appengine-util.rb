@@ -5,7 +5,7 @@ class AppengineUtil < Formula
   homepage 'https://github.com/toonetown/appengine-util/'
   url 'https://github.com/toonetown/appengine-util.git', :tag => "v#{version}"
   head 'https://github.com/toonetown/appengine-util.git', :branch => 'master'
-  depends_on "app-engine-java-sdk"
+  depends_on "app-engine-java"
   
   skip_clean 'bin'
   
