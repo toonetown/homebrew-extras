@@ -1,4 +1,4 @@
-cask :v1 => "xcode-beta" do
+cask "xcode-beta" do
   version '7.0-b6'
   sha256 '3a5582b85901bb12f87957785dc29b7789bd01f6b51521286b1036688dd0b127'
 
