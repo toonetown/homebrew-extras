@@ -1,9 +1,9 @@
 cask "xcode" do
-  version '7.0'
-  sha256 '37ae21de35f1ce6121800b31579c6147e6e8b13865befb8adc441b0b6885eb4a'
+  version '7.2.1'
+  sha256 '9f4703d055e27643762797594303f79561ad7d8c9f88e97099c67ae6e12e375c'
 
   dmg_download_path=ENV['DMG_DOWNLOAD_PATH'] ? ENV['DMG_DOWNLOAD_PATH'] : "file:#{ENV['HOME']}/Downloads"
-  url "#{dmg_download_path}/Xcode_7_GM_seed.dmg"
+  url "#{dmg_download_path}/Xcode_#{version}.dmg"
   homepage "http://developer.apple.com/"
   license :unknown
 
