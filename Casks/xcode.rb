@@ -1,6 +1,6 @@
 cask "xcode" do
-  version '7.2.1'
-  sha256 '9f4703d055e27643762797594303f79561ad7d8c9f88e97099c67ae6e12e375c'
+  version '7.3'
+  sha256 '13706d5a9cf74c798d3ca794f0ebae3e344f913422d2bb7d1ddd3bca331e49b5'
 
   dmg_download_path=ENV['DMG_DOWNLOAD_PATH'] ? ENV['DMG_DOWNLOAD_PATH'] : "file:#{ENV['HOME']}/Downloads"
   url "#{dmg_download_path}/Xcode_#{version}.dmg"
