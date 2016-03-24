@@ -8,7 +8,7 @@ class DockerEnv < Formula
   depends_on "toonetown-extras"
   homepage 'https://github.com/toonetown/homebrew-extras/'
   url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
-  sha1 "7a545dcdaea905523d76f2ba42a625b0db42382b"
+  sha256 "d3fa73afccb07dfbed6f0dde72917b402317912c852969855c5493e7d85297fa"
 
   def install
     (prefix+"etc/profile.d").install '20-docker-env'
