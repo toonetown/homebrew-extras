@@ -1,0 +1,23 @@
+# Sets some helper functions for docker instances
+which docker >/dev/null && which docker-machine >/dev/null && {
+	DEFAULT_DOCKER_NAME="default"
+	function docker-isrunning { 
+		[ -n "$(docker-machine ls -q --filter state=Running --filter name="^${1:-${DEFAULT_DOCKER_NAME}}$")" ]
+		return $?
+	}
+	function docker-start { 
+		docker-isrunning "${1:-${DEFAULT_DOCKER_NAME}}" || docker-machine start "${1:-${DEFAULT_DOCKER_NAME}}"
+		return $?
+	}
+	function docker-stop { 
+		docker-isrunning "${1:-${DEFAULT_DOCKER_NAME}}" && docker-machine stop "${1:-${DEFAULT_DOCKER_NAME}}"
+		return $?
+	}
+	function docker-connect { 
+		docker-start "${1:-${DEFAULT_DOCKER_NAME}}" && eval "$(docker-machine env ${1:-${DEFAULT_DOCKER_NAME}})"
+		return $?
+	}
+	function docker-disconnect { 
+		eval "$(docker-machine env -u)"
+	}
+}
