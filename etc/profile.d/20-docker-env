@@ -20,4 +20,8 @@ which docker >/dev/null && which docker-machine >/dev/null && {
 	function docker-disconnect { 
 		eval "$(docker-machine env -u)"
 	}
+	function docker-port {
+		docker port $@ | sed -e "s/0.0.0.0:/$(docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
+		return $?
+	}
 }
