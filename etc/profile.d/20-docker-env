@@ -24,4 +24,19 @@ which docker >/dev/null && which docker-machine >/dev/null && {
 		docker port $@ | sed -e "s/0.0.0.0:/$(docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
 		return $?
 	}
+    function docker-clear-log {
+        [ -n "${1}" ] || { echo "Container is required" >&2; return 1; }
+        CNT="$(docker inspect --format="{{ .Id }}" "${1}")"
+        [ -n "${CNT}" ] || { return 1; }
+        docker-machine ssh "${DOCKER_MACHINE_NAME}" \
+            sudo find /var/lib/docker/containers/${CNT} -type f -name '*-json.log' -delete || return $?
+        echo "${1}"
+    }
+    function docker-tail {
+        [ -n "${1}" ] || { echo "Container is required" >&2; return 1; }
+        while true; do
+            docker logs -f "${1}" || return $?
+            [ "$(docker inspect --format="{{ .State.Running }}" "${1}" 2>/dev/null)" == "true" ] || break
+        done
+    }
 }
