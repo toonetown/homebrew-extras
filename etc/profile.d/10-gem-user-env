@@ -1,0 +1,5 @@
+GEM_HOME="$(gem environment gempath | tr ':' '\n' | grep -F -- "${HOME}")"
+if [ -n "${GEM_HOME}" ]; then
+    export GEM_HOME
+    source update-env post PATH "${GEM_HOME}/bin"
+fi
