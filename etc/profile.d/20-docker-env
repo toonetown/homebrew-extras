@@ -1,42 +1,126 @@
 # Sets some helper functions for docker instances
 which docker >/dev/null && which docker-machine >/dev/null && {
-	DEFAULT_DOCKER_NAME="default"
-	function docker-isrunning { 
-		[ -n "$(docker-machine ls -q --filter state=Running --filter name="^${1:-${DEFAULT_DOCKER_NAME}}$")" ]
-		return $?
-	}
-	function docker-start { 
-		docker-isrunning "${1:-${DEFAULT_DOCKER_NAME}}" || docker-machine start "${1:-${DEFAULT_DOCKER_NAME}}"
-		return $?
-	}
-	function docker-stop { 
-		docker-isrunning "${1:-${DEFAULT_DOCKER_NAME}}" && docker-machine stop "${1:-${DEFAULT_DOCKER_NAME}}"
-		return $?
-	}
-	function docker-connect { 
-		docker-start "${1:-${DEFAULT_DOCKER_NAME}}" && eval "$(docker-machine env ${1:-${DEFAULT_DOCKER_NAME}})"
-		return $?
-	}
-	function docker-disconnect { 
-		eval "$(docker-machine env -u)"
-	}
-	function docker-port {
-		docker port $@ | sed -e "s/0.0.0.0:/$(docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
-		return $?
-	}
-    function docker-clear-log {
-        [ -n "${1}" ] || { echo "Container is required" >&2; return 1; }
-        CNT="$(docker inspect --format="{{ .Id }}" "${1}")"
-        [ -n "${CNT}" ] || { return 1; }
-        docker-machine ssh "${DOCKER_MACHINE_NAME}" \
-            sudo find /var/lib/docker/containers/${CNT} -type f -name '*-json.log' -delete || return $?
-        echo "${1}"
+
+    # Extensions to docker-machine
+    function __docker_machine_env_wrapper {
+        case "${1}" in
+            "isrunning")
+                shift
+                if [ "${1}" == "-h" -o "${1}" == "--help" ]; then
+                    echo "Usage: docker-machine isrunning [arg...]"
+                    echo ""
+                    echo "Checks if a machine is running"
+                    echo ""
+                    echo "Description:"
+                    echo "   Argument(s) are one or more machine names."
+                    return 0
+                else
+                    if [ $# -eq 0 ]; then _MACHINES=("default"); else _MACHINES=("$@"); fi
+                    for m in ${_MACHINES[@]}; do
+                        [ -n "$(command docker-machine ls -q --filter state=Running --filter name="^${m}$")" ] || {
+                            return $?
+                        }
+                    done
+                    return 0
+                fi
+                ;;
+            "start")
+                shift
+                if [ "${1}" == "-h" -o "${1}" == "--help" ]; then
+                    command docker-machine start -h \
+                     | sed -e 's/^Start a machine$/Start a machine if it is not already running/g'
+                else
+                    __docker_machine_env_wrapper isrunning "$@" || command docker-machine start "$@"
+                fi
+                ;;
+            "stop")
+                shift
+                if [ "${1}" == "-h" -o "${1}" == "--help" ]; then
+                    command docker-machine stop -h \
+                     | sed -e 's/^Stop a machine$/Stop a machine if it is running/g'
+                else
+                    __docker_machine_env_wrapper isrunning "$@" && command docker-machine stop "$@"
+                fi
+                ;;
+            "connect")
+                shift
+                if [ "${1}" == "-h" -o "${1}" == "--help" ]; then
+                    command docker-machine env -h \
+                     | sed -e 's/ docker-machine env / docker-machine connect /g' \
+                     | sed -e 's/^Display \(.*\) client$/Evaluate \1 client, starting machine if needed/g'
+                else
+                    _ENV_ARGS=()
+                    while [ $# -gt 0 ]; do
+                        if [ ${1:0:1} == "-" ]; then _ENV_ARGS+=("${1}"); shift; else break; fi
+                    done
+                    __docker_machine_env_wrapper start "$@" \
+                    && eval "$(command docker-machine env "${_ENV_ARGS[@]}" "$@")"
+                fi
+                ;;
+            "disconnect")
+                shift
+                if [ "${1}" == "-h" -o "${1}" == "--help" ]; then
+                    echo "Usage: docker-machine disconnect [arg...]"
+                    echo ""
+                    echo "Unset all docker-machine environment variables"
+                    echo ""
+                    echo "Description:"
+                    echo "   Argument is a machine name."
+                else
+                    eval "$(command docker-machine env -u "$@")"
+                fi
+                ;;
+            *)
+                command docker-machine "$@"
+                ;;
+        esac
+        return $?
     }
-    function docker-tail {
-        [ -n "${1}" ] || { echo "Container is required" >&2; return 1; }
-        while true; do
-            docker logs -f "${1}" || return $?
-            [ "$(docker inspect --format="{{ .State.Running }}" "${1}" 2>/dev/null)" == "true" ] || break
-        done
+
+    # Extensions to docker
+    function __docker_env_wrapper {
+        case "${1}" in
+            "rmlogs")
+                shift
+                if [ "${1}" == "-h" -o "${1}" == "--help" -o -z "${1}" ]; then
+                    if [ -z "${1}" ]; then
+                        _O=/dev/stderr; _R=1
+                        echo "docker: \"rmlogs\" requires a minimum of 1 argument." >${_O}
+                    else
+                        _O=/dev/stdout; _R=0
+                        echo "" >${_O}
+                    fi
+                    echo "Usage:	docker rmlogs CONTAINER [CONTAINER...]" >${_O}
+                    echo ""                                                 >${_O}
+                    echo "Remove logs for one or more containers"           >${_O}
+                    return ${_R}
+                else
+                    for c in $@; do
+                        _CNT="$(command docker inspect --format="{{ .Id }}" "${c}")"
+                        [ -n "${_CNT}" ] || return 1
+                        echo "Removing logs for $_CNT..."
+                        command docker-machine ssh "${DOCKER_MACHINE_NAME}" \
+                                    sudo find /var/lib/docker/containers/${_CNT} \
+                                        -type f -name '*-json.log' \
+                                        -exec tee {} + </dev/null || return $?
+                    done
+                    return 0
+                fi
+                ;;
+            "port")
+                shift
+                command docker port "$@" \
+                 | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
+                ;;
+            *)
+                command docker "$@"
+                ;;
+        esac
+        return $?
     }
+
+    # Set up the aliases - but flag the docker system not to wrap it
+    DOCKER_MACHINE_WRAPPED=false
+    alias docker-machine=__docker_machine_env_wrapper
+    alias docker=__docker_env_wrapper
 }
