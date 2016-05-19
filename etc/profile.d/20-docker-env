@@ -154,6 +154,27 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                     return 0
                 fi
                 ;;
+            "ip")
+                shift
+                if [ "${1}" == "-h" -o "${1}" == "--help" -o -z "${1}" ]; then
+                    if [ -z "${1}" ]; then
+                        _O=/dev/stderr; _R=1
+                        echo "docker: \"ip\" requires a minimum of 1 argument." >${_O}
+                    else
+                        _O=/dev/stdout; _R=0
+                        echo "" >${_O}
+                    fi
+                    echo "Usage:	docker ip CONTAINER [CONTAINER...]"             >${_O}
+                    echo ""                                                         >${_O}
+                    echo "Returns the IP address for one or more containers"        >${_O}
+                    return ${_R}
+                else
+                    for c in $@; do
+                        command docker inspect --format="{{ .NetworkSettings.IPAddress }}" "${c}" || return $?
+                    done
+                    return 0
+                fi
+                ;;
             "port")
                 shift
                 command docker port "$@" \
