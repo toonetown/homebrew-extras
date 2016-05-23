@@ -186,9 +186,23 @@ which docker >/dev/null && which docker-machine >/dev/null && {
         esac
         return $?
     }
+    function __docker_compose_env_wrapper {
+        case "${1}" in
+            "port")
+                shift
+                command docker-compose port "$@" \
+                 | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
+                ;;
+            *)
+                command docker-compose "$@"
+                ;;
+        esac
+        return $?
+    }
 
     # Set up the aliases - but flag the docker system not to wrap it
     DOCKER_MACHINE_WRAPPED=false
     alias docker-machine=__docker_machine_env_wrapper
     alias docker=__docker_env_wrapper
+    alias docker-compose=__docker_compose_env_wrapper
 }
