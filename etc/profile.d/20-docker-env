@@ -170,7 +170,9 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                     return ${_R}
                 else
                     for c in $@; do
-                        command docker inspect --format="{{ .NetworkSettings.IPAddress }}" "${c}" || return $?
+                        command docker inspect \
+                                    --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" \
+                                    "${c}" || return $?
                     done
                     return 0
                 fi
@@ -188,6 +190,10 @@ which docker >/dev/null && which docker-machine >/dev/null && {
     }
     function __docker_compose_env_wrapper {
         case "${1}" in
+            "ip")
+                shift
+                __docker_env_wrapper ip "$(command docker-compose ps -q $@)"
+                ;;
             "port")
                 shift
                 command docker-compose port "$@" \
