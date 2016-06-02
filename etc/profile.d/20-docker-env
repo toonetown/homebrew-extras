@@ -88,6 +88,7 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                         _CNT_ROUTE="$(command docker-machine ssh ${m} ip route show | awk '/docker0/{print $1}')"
                         [ -n "${_CNT_ROUTE}" ] || return 1
                         if netstat -rn | awk "\$2 == \"${_DM_IP}\" { exit(1); }"; then
+                            sudo -n true &>/dev/null || echo "Using sudo to set up route"
                             sudo route -n add "${_CNT_ROUTE}" "${_DM_IP}"
                         else
                             echo "Already routing to the docker VM ${m}:"
@@ -114,6 +115,7 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                         if netstat -rn | awk "\$2 == \"${_DM_IP}\" { exit(1); }"; then
                             echo "Not routing to the docker VM ${m}"
                         else
+                            sudo -n true &>/dev/null || echo "Using sudo to tear down route"
                             sudo route -n delete "${_CNT_ROUTE}"
                         fi
                     done
