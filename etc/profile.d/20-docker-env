@@ -204,7 +204,14 @@ which docker >/dev/null && which docker-machine >/dev/null && {
             case "${1}" in
                 "ip")
                     shift
-                    __docker_env_wrapper ip "$(command docker-compose ps -q $@)"
+                    if [ "${1}" == "-h" -o "${1}" == "--help" ]; then
+                        __docker_env_wrapper ip -h \
+                         | sed -e 's/docker //g' \
+                         | sed -e 's/CONTAINER/SERVICE/g' \
+                         | sed -e 's/containers/services/g'
+                    else
+                        __docker_env_wrapper ip "$(command docker-compose ps -q $@)"
+                    fi
                     ;;
                 "port")
                     shift
