@@ -124,6 +124,34 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                     done
                 fi
                 ;;
+            "help")
+                shift
+                case "${1}" in
+                    "")
+                        command docker-machine help \
+                        | awk '/^Run / {
+                            print "Extended Commands:";
+                            print "  connect"    "\t\t" \
+                                            "Evaluate the commands to set up the environment for the Docker client";
+                            print "  disconnect" "\t\t" \
+                                            "Unset all docker-machine environment variables";
+                            print "  isrunning"  "\t\t" \
+                                            "Checks if a machine is running";
+                            print "  route"    "\t\t\t" \
+                                            "Routes traffic for docker containers through the machine";
+                            print "  unroute"    "\t\t" \
+                                            "Un-routes traffic for docker containers through the machine";
+                            print "";
+                        }1'
+                        ;;
+                    "isrunning" | "connect" | "disconnect" | "route" | "unroute")
+                        __docker_machine_env_wrapper ${1} --help
+                        ;;
+                    *)
+                        command docker-machine help "$@"
+                        ;;
+                esac
+                ;;
             *)
                 command docker-machine "$@"
                 ;;
@@ -190,6 +218,26 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                 command docker port "$@" \
                  | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
                 ;;
+            "help")
+                shift
+                case "${1}" in
+                    "")
+                        command docker help \
+                        | awk '/^Run / {
+                            print "Extended Commands:";
+                            print "    ip        Returns the IP address for one or more containers";
+                            print "    rmlogs    Remove logs for one or more containers";
+                            print "";
+                        }1'
+                        ;;
+                    "ip" | "rmlogs")
+                        __docker_env_wrapper ${1} --help
+                        ;;
+                    *)
+                        command docker help "$@"
+                        ;;
+                esac
+                ;;
             *)
                 command docker "$@"
                 ;;
@@ -217,6 +265,23 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                     shift
                     command docker-compose port "$@" \
                      | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
+                    ;;
+                "help")
+                    shift
+                    case "${1}" in
+                        "")
+                            command docker-compose help
+                            echo ""
+                            echo "Extended Commands:"
+                            echo "  ip                 Returns the IP address for one or more services"
+                            ;;
+                        "ip")
+                            __docker_compose_env_wrapper ${1} --help
+                            ;;
+                        *)
+                            command docker-compose help "$@"
+                            ;;
+                    esac
                     ;;
                 *)
                     command docker-compose "$@"
