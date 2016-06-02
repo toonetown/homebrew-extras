@@ -47,11 +47,16 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                 if [ "${1}" == "-h" -o "${1}" == "--help" ]; then
                     command docker-machine env -h \
                      | sed -e 's/ docker-machine env / docker-machine connect /g' \
-                     | sed -e 's/^Display \(.*\) client$/Evaluate \1 client, starting machine if needed/g'
+                     | sed -e 's/^Display \(.*\) client$/Evaluate \1 client, starting machine if needed/g' \
+                     | grep -v -- '--shell'
                 else
                     _ENV_ARGS=()
                     while [ $# -gt 0 ]; do
-                        if [ ${1:0:1} == "-" ]; then _ENV_ARGS+=("${1}"); shift; else break; fi
+                        if [ ${1:0:1} == "-" ]; then 
+                            [ "${1}" != "--shell" ] && _ENV_ARGS+=("${1}"); shift
+                        else 
+                            break
+                        fi
                     done
                     __docker_machine_env_wrapper start "$@" \
                     && eval "$(command docker-machine env "${_ENV_ARGS[@]}" "$@")"
