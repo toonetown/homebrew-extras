@@ -159,6 +159,57 @@ which docker >/dev/null && which docker-machine >/dev/null && {
         return $?
     }
     alias docker-machine=__docker_machine_env_wrapper
+    
+    # Set up docker-machine auto-complete (as needed)
+    if declare -f _docker_machine >/dev/null; then
+        _docker_machine_env_commands=()
+
+        _docker_machine_isrunning() {
+            if [[ "${cur}" == -* ]]; then
+                COMPREPLY=($(compgen -W "--help" -- "${cur}"))
+            else
+                COMPREPLY=($(compgen -W "$(docker-machine ls -q)" -- "${cur}"))
+            fi
+        }
+        _docker_machine_env_commands+=(isrunning)
+        
+        _docker_machine_connect() {
+            if [[ "${cur}" == -* ]]; then
+                COMPREPLY=($(compgen -W "--swarm --unset --no-proxy --help" -- "${cur}"))
+            else
+                COMPREPLY=($(compgen -W "$(docker-machine ls -q)" -- "${cur}"))
+            fi
+        }
+        _docker_machine_env_commands+=(connect)
+
+        _docker_machine_disconnect() {
+            if [[ "${cur}" == -* ]]; then
+                COMPREPLY=($(compgen -W "--help" -- "${cur}"))
+            fi
+        }
+        _docker_machine_env_commands+=(disconnect)
+        
+        _docker_machine_route() {
+            if [[ "${cur}" == -* ]]; then
+                COMPREPLY=($(compgen -W "--help" -- "${cur}"))
+            else
+                COMPREPLY=($(compgen -W "$(docker-machine ls -q)" -- "${cur}"))
+            fi
+        }
+        _docker_machine_env_commands+=(route)
+
+        _docker_machine_unroute() {
+            if [[ "${cur}" == -* ]]; then
+                COMPREPLY=($(compgen -W "--help" -- "${cur}"))
+            else
+                COMPREPLY=($(compgen -W "$(docker-machine ls -q)" -- "${cur}"))
+            fi
+        }
+        _docker_machine_env_commands+=(unroute)
+        
+        eval "$(declare -f _docker_machine | sed -E "s/(local commands=\()/\1${_docker_machine_env_commands[*]} /g")"
+    fi
+    
 
     # Extensions to docker
     function __docker_env_wrapper {
@@ -246,6 +297,32 @@ which docker >/dev/null && which docker-machine >/dev/null && {
     }
     alias docker=__docker_env_wrapper
 
+    # Set up docker auto-complete (as needed)
+    if declare -f _docker >/dev/null; then
+        _docker_env_commands=()
+
+        _docker_rmlogs() {
+            if [[ "${cur}" == -* ]]; then
+                COMPREPLY=($(compgen -W "--help" -- "${cur}"))
+            else
+                __docker_complete_containers_all
+            fi
+        }
+        _docker_env_commands+=(rmlogs)
+        
+        _docker_ip() {
+            if [[ "${cur}" == -* ]]; then
+                COMPREPLY=($(compgen -W "--help" -- "${cur}"))
+            else
+                __docker_complete_containers_running
+            fi
+        }
+        _docker_env_commands+=(ip)
+
+        eval "$(declare -f _docker | sed -E "s/(local commands=\()/\1${_docker_env_commands[*]} /g")"
+    fi
+
+    
     which docker-compose >/dev/null && {
         # Extensions to docker-compose
         function __docker_compose_env_wrapper {
@@ -290,5 +367,23 @@ which docker >/dev/null && which docker-machine >/dev/null && {
             return $?
         }
         alias docker-compose=__docker_compose_env_wrapper
+        
+        # Set up docker-compose auto-complete (as needed)
+        if declare -f _docker_compose >/dev/null; then
+            _docker_compose_env_commands=()
+
+            _docker_compose_ip() {
+                if [[ "${cur}" == -* ]]; then
+                    COMPREPLY=($(compgen -W "--help" -- "${cur}"))
+                else
+                   __docker_compose_services_running
+                fi
+            }
+            _docker_compose_env_commands+=(ip)
+        
+            eval "$(declare -f _docker_compose \
+                    | sed -E "s/(local commands=\()/\1${_docker_compose_env_commands[*]} /g")"
+        fi
+
     }
 }
