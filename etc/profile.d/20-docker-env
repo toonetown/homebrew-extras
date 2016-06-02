@@ -124,8 +124,8 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                     done
                 fi
                 ;;
-            "help")
-                shift
+            "help" | "")
+                [ -n "${1}" ] && shift
                 case "${1}" in
                     "")
                         command docker-machine help \
@@ -269,8 +269,8 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                 command docker port "$@" \
                  | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
                 ;;
-            "help")
-                shift
+            "help" | "")
+                [ -n "${1}" ] && shift
                 case "${1}" in
                     "")
                         command docker help \
@@ -343,8 +343,8 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                     command docker-compose port "$@" \
                      | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
                     ;;
-                "help")
-                    shift
+                "help" | "")
+                    [ -n "${1}" ] && shift
                     case "${1}" in
                         "")
                             command docker-compose help
