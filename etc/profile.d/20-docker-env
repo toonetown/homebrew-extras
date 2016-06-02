@@ -1,6 +1,9 @@
 # Sets some helper functions for docker instances
 which docker >/dev/null && which docker-machine >/dev/null && {
 
+    # Flag the docker system not to wrap it
+    DOCKER_MACHINE_WRAPPED=false
+
     # Extensions to docker-machine
     function __docker_machine_env_wrapper {
         case "${1}" in
@@ -127,6 +130,7 @@ which docker >/dev/null && which docker-machine >/dev/null && {
         esac
         return $?
     }
+    alias docker-machine=__docker_machine_env_wrapper
 
     # Extensions to docker
     function __docker_env_wrapper {
@@ -192,6 +196,7 @@ which docker >/dev/null && which docker-machine >/dev/null && {
         esac
         return $?
     }
+    alias docker=__docker_env_wrapper
 
     which docker-compose >/dev/null && {
         # Extensions to docker-compose
@@ -212,11 +217,6 @@ which docker >/dev/null && which docker-machine >/dev/null && {
             esac
             return $?
         }
+        alias docker-compose=__docker_compose_env_wrapper
     }
-
-    # Set up the aliases - but flag the docker system not to wrap it
-    DOCKER_MACHINE_WRAPPED=false
-    alias docker-machine=__docker_machine_env_wrapper
-    alias docker=__docker_env_wrapper
-    which docker-compose >/dev/null && alias docker-compose=__docker_compose_env_wrapper
 }
