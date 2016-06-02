@@ -65,12 +65,9 @@ which docker >/dev/null && which docker-machine >/dev/null && {
             "disconnect")
                 shift
                 if [ "${1}" == "-h" -o "${1}" == "--help" ]; then
-                    echo "Usage: docker-machine disconnect [arg...]"
+                    echo "Usage: docker-machine disconnect"
                     echo ""
                     echo "Unset all docker-machine environment variables"
-                    echo ""
-                    echo "Description:"
-                    echo "   Argument is a machine name."
                 else
                     eval "$(command docker-machine env -u "$@")"
                 fi
