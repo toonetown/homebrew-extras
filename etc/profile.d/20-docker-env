@@ -229,15 +229,20 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                     echo "Remove logs for one or more containers"           >${_O}
                     return ${_R}
                 else
-                    for c in $@; do
-                        _CNT="$(command docker inspect --format="{{ .Id }}" "${c}")"
-                        [ -n "${_CNT}" ] || return 1
-                        echo "Removing logs for $_CNT..."
-                        command docker-machine ssh "${DOCKER_MACHINE_NAME}" \
-                                    sudo find /var/lib/docker/containers/${_CNT} \
-                                        -type f -name '*-json.log' \
-                                        -exec tee {} + </dev/null || return $?
-                    done
+                    if [ -z "${DOCKER_MACHINE_NAME}" ]; then
+                        echo "Cannot currently remove logs from Docker for Mac" >${_O}
+                        return 1
+                    else                        
+                        for c in $@; do
+                            _CNT="$(command docker inspect --format="{{ .Id }}" "${c}")"
+                            [ -n "${_CNT}" ] || return 1
+                            echo "Removing logs for $_CNT..."
+                            command docker-machine ssh "${DOCKER_MACHINE_NAME}" \
+                                        sudo find /var/lib/docker/containers/${_CNT} \
+                                            -type f -name '*-json.log' \
+                                            -exec tee {} + </dev/null || return $?
+                        done
+                    fi
                     return 0
                 fi
                 ;;
@@ -266,8 +271,12 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                 ;;
             "port")
                 shift
-                command docker port "$@" \
-                 | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
+                if [ -z "${DOCKER_MACHINE_NAME}" ]; then
+                    command docker port "$@"
+                else
+                    command docker port "$@" \
+                     | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
+                fi
                 ;;
             "help" | "-h" | "--help" | "")
                 [ -n "${1}" ] && shift
@@ -340,8 +349,12 @@ which docker >/dev/null && which docker-machine >/dev/null && {
                     ;;
                 "port")
                     shift
-                    command docker-compose port "$@" \
-                     | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
+                    if [ -z "${DOCKER_MACHINE_NAME}" ]; then
+                        command docker-compose port "$@"
+                    else
+                        command docker-compose port "$@" \
+                         | sed -e "s/0.0.0.0:/$(command docker-machine ip "${DOCKER_MACHINE_NAME}"):/g"
+                    fi
                     ;;
                 "help" | "-h" | "--help" | "")
                     [ -n "${1}" ] && shift
