@@ -2,13 +2,13 @@ require 'pathname'
 require 'formula'
 
 class GoogleCloudSdkEnv < Formula
-  version "1.19"
+  version "1.29"
   env_file = "20-google-cloud-sdk-env"
   
   depends_on "toonetown-extras"
   homepage 'https://github.com/toonetown/homebrew-extras/'
   url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
-  sha256 "d3e0f36557a430a7cdc445c9ce2bb17f43fbf0f567ceb861f08db5eecb39b087"
+  sha256 "c92193d86ede470ddc3ca864498750fcf2e17f42adba28b9da48f0be73eb40ed"
 
   def install
     (prefix+"etc/profile.d").install '20-google-cloud-sdk-env'
