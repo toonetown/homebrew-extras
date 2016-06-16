@@ -23,6 +23,8 @@ class ScmPrompt < Formula
       } || {
         export PS1="\\[\\e[0;32m\\]\\u@\\h \\[\\e[0;34m\\]\\W \\$ \\[\\e[m\\]"
       }
+
+    You can install toonetown/extras/pretty-prompt to automatically set these as an auto-exec environment
     EOS
   end
 end
