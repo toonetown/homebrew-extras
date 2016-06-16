@@ -1,44 +1,46 @@
-__pp_color() {
-    case "${1}" in
-        black)
-            echo -n "0"
-            ;;
-        red)
-            echo -n "1"
-            ;;
-        green)
-            echo -n "2"
-            ;;
-        yellow)
-            echo -n "3"
-            ;;
-        blue)
-            echo -n "4"
-            ;;
-        magenta)
-            echo -n "5"
-            ;;
-        cyan)
-            echo -n "6"
-            ;;
-        white)
-            echo -n "7"
-            ;;
-        *)
-            echo "Invalid color: ${1}" >&2
-            return 1
-            ;;
-    esac
-}
+if [ "${BASH-no}" != "no" ]; then
+    __pp_color() {
+        case "${1}" in
+            black)
+                echo -n "0"
+                ;;
+            red)
+                echo -n "1"
+                ;;
+            green)
+                echo -n "2"
+                ;;
+            yellow)
+                echo -n "3"
+                ;;
+            blue)
+                echo -n "4"
+                ;;
+            magenta)
+                echo -n "5"
+                ;;
+            cyan)
+                echo -n "6"
+                ;;
+            white)
+                echo -n "7"
+                ;;
+            *)
+                echo "Invalid color: ${1}" >&2
+                return 1
+                ;;
+        esac
+    }
 
-: ${PP_USER_COLOR:=green}
-: ${PP_PATH_COLOR:=blue}
+    : ${PP_USER_COLOR:=green}
+    : ${PP_PATH_COLOR:=blue}
 
-export CLICOLOR=1
-export LSCOLORS=ExFxCxDxBxegedabagacad
-which scm-prompt &>/dev/null && {
-    source "$(brew --prefix scm-prompt)/bin/scm-prompt"
-    export PS1="\[\e[0;3$(__pp_color ${PP_USER_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W\$(_scm_prompt) \$ \[\e[m\]"
-} || {
-    export PS1="\[\e[0;3$(__pp_color ${PP_USER_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W \$ \[\e[m\]"
-}
+    export CLICOLOR=1
+    export LSCOLORS=ExFxCxDxBxegedabagacad
+    which scm-prompt &>/dev/null && {
+        source "$(brew --prefix scm-prompt)/bin/scm-prompt"
+        export PS1="\[\e[0;3$(__pp_color ${PP_USER_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W\$(_scm_prompt) \$ \[\e[m\]"
+    } || {
+        export PS1="\[\e[0;3$(__pp_color ${PP_USER_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W \$ \[\e[m\]"
+    }
+fi
