@@ -29,6 +29,11 @@ cask "xcode" do
     environment variable 'DMG_DOWNLOAD_PATH'.  This can be specified as a
     local path (using the file:// scheme) or other URL, and will be used in 
     the url for this cask. It defaults to ${HOME}/Downloads
+    
+    You can download this file by logging in to:
+      https://developer.apple.com/downloads/
+    And then downloading from:
+      http://adcdownload.apple.com/Developer_Tools/Xcode_#{version}/Xcode_#{version}.dmg
   EOS
   
 end
