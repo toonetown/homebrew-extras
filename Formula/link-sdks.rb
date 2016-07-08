@@ -1,9 +1,9 @@
 require "formula"
 
 class LinkSdks < Formula
-  version "1"
+  version "2"
   homepage "https://gist.github.com/befe043f8ee85c67ad70"
-  url "https://gist.github.com/befe043f8ee85c67ad70.git", :revision => "c5f1c67f"
+  url "https://gist.github.com/befe043f8ee85c67ad70.git", :revision => "c31e23f0"
   head "https://gist.github.com/befe043f8ee85c67ad70.git", :branch => "master"
 
   skip_clean "bin"
