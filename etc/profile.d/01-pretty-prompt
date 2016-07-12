@@ -34,13 +34,15 @@ if [ "${BASH-no}" != "no" ]; then
 
     : ${PP_USER_COLOR:=green}
     : ${PP_PATH_COLOR:=blue}
+    : ${PP_ROOT_USER_COLOR:=red}
 
     export CLICOLOR=1
     export LSCOLORS=ExFxCxDxBxegedabagacad
+    [ "$(id -u)" == "0" ] && { _MY_COLOR="${PP_ROOT_USER_COLOR}"; } || { _MY_COLOR="${PP_USER_COLOR}"; }
     which scm-prompt &>/dev/null && {
         source "$(brew --prefix scm-prompt)/bin/scm-prompt"
-        export PS1="\[\e[0;3$(__pp_color ${PP_USER_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W\$(_scm_prompt) \$ \[\e[m\]"
+        export PS1="\[\e[0;3$(__pp_color ${_MY_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W\$(_scm_prompt) \$ \[\e[m\]"
     } || {
-        export PS1="\[\e[0;3$(__pp_color ${PP_USER_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W \$ \[\e[m\]"
+        export PS1="\[\e[0;3$(__pp_color ${_MY_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W \$ \[\e[m\]"
     }
 fi
