@@ -1,9 +1,9 @@
 require "formula"
 
 class BrewBootstrap < Formula
-  version "1.8"
+  version "1.9"
   homepage "https://gist.github.com/toonetown/48101686e509fda81335"
-  url "https://gist.github.com/48101686e509fda81335.git", :revision => "6d081ee"
+  url "https://gist.github.com/48101686e509fda81335.git", :revision => "3e8dcf26"
   head "https://gist.github.com/48101686e509fda81335.git", :branch => "master"
 
   skip_clean "bin"
