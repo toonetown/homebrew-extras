@@ -6,8 +6,10 @@ CURL="curl -sSL"
 SCRIPT_NAME="${1}"
 shift
 
+if [ "${SCRIPT_NAME}" == "cat" ]; then DO_CAT="yes"; SCRIPT_NAME="${1}"; shift; fi
+
 if [ -z "${SCRIPT_NAME}" ]; then
-    echo "Usage: ${0} <script-name> [script-args...]"
+    echo "Usage: ${0} [cat] <script-name> [script-args...]"
     echo ""
     ${CURL} "${SCRIPT_SERVER_PATH}/_list.txt" 2>/dev/null || {
         if [ -z "${SCRIPT_SERVER_PATH}" ]; then
@@ -18,5 +20,9 @@ if [ -z "${SCRIPT_NAME}" ]; then
     }
     exit 1
 else
-    ${CURL} "${SCRIPT_SERVER_PATH}/${SCRIPT_NAME}" | /bin/bash -s -- $@
+    if [ "${DO_CAT}" == "yes" ]; then
+        ${CURL} "${SCRIPT_SERVER_PATH}/${SCRIPT_NAME}"
+    else
+        ${CURL} "${SCRIPT_SERVER_PATH}/${SCRIPT_NAME}" | /bin/bash -s -- $@
+    fi
 fi
