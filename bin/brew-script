@@ -2,14 +2,12 @@
 # Executes a script from off a server.  Requires that the variable SCRIPT_SERVER_PATH is set
 #
 #!/bin/bash
-CURL="curl -sSL"
+set -o pipefail
+CURL="curl -fsSL"
 SCRIPT_NAME="${1}"
 shift
 
-if [ "${SCRIPT_NAME}" == "cat" ]; then DO_CAT="yes"; SCRIPT_NAME="${1}"; shift; fi
-
-if [ -z "${SCRIPT_NAME}" ]; then
-    echo "Usage: ${0} [cat] <script-name> [script-args...]"
+print_list() {
     echo ""
     ${CURL} "${SCRIPT_SERVER_PATH}/_list.txt" 2>/dev/null || {
         if [ -z "${SCRIPT_SERVER_PATH}" ]; then
@@ -18,11 +16,19 @@ if [ -z "${SCRIPT_NAME}" ]; then
             echo "    ${SCRIPT_SERVER_PATH} is not a valid server path"
         fi
     }
-    exit 1
+    return ${1}
+}
+
+if [ "${SCRIPT_NAME}" == "cat" ]; then DO_CAT="yes"; SCRIPT_NAME="${1}"; shift; fi
+
+if [ -z "${SCRIPT_NAME}" ]; then
+    echo "Usage: ${0} [cat] <script-name> [script-args...]"
+    print_list 1
+    exit $?
 else
     if [ "${DO_CAT}" == "yes" ]; then
-        ${CURL} "${SCRIPT_SERVER_PATH}/${SCRIPT_NAME}"
+        ${CURL} "${SCRIPT_SERVER_PATH}/${SCRIPT_NAME}" || { print_list $?; exit $?; }
     else
-        ${CURL} "${SCRIPT_SERVER_PATH}/${SCRIPT_NAME}" | /bin/bash -s -- $@
+        ${CURL} "${SCRIPT_SERVER_PATH}/${SCRIPT_NAME}" | /bin/bash -s -- $@ || { print_list $?; exit $?; }
     fi
 fi
