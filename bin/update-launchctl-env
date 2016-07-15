@@ -1,4 +1,5 @@
 #!/bin/bash
+: ${TMPDIR:=/tmp}
 WORK_DIR="${TMPDIR}/update-launchctl.$$"
 BEFORE="${WORK_DIR}/before"
 AFTER="${WORK_DIR}/after"
