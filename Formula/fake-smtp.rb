@@ -34,6 +34,8 @@ class FakeSmtp < Formula
         <string>-s</string>
         <string>-b</string>
         <string>-m</string>
+        <string>-a</string>
+        <string>127.0.0.1</string>
       </array>
       <key>ServiceDescription</key>
       <string>Fake SMTP Server</string>
