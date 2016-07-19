@@ -1,32 +1,31 @@
-require 'pathname'
-require 'formula'
-
-require Pathname(__FILE__).realpath.dirname.join('../lib', 'version')
-
 class ToonetownExtras < Formula
-  homepage 'https://github.com/toonetown/homebrew-extras/'
-  url 'https://github.com/toonetown/homebrew-extras.git', :tag => "v#{TOONETOWN_EXTRAS_VERSION}"
+  desc "Additional homebrew functionality, formulae, and casks"
+  homepage "https://github.com/toonetown/homebrew-extras/"
+  url "https://github.com/toonetown/homebrew-extras/archive/v1.34.tar.gz"
+  sha256 "0a6c01a25acb76f244d5308d3eaecb84ec6214fb04c71e365e896183c2d6b94b"
 
-  head 'https://github.com/toonetown/homebrew-extras.git', :branch => 'master'
+  head "https://github.com/toonetown/homebrew-extras.git", :branch => "master"
 
-  skip_clean 'bin'
+  skip_clean "bin"
 
   def install
-    prefix.install 'lib' => 'rubylib'
-    inreplace 'bin/brewcask-outdated.rb', '/lib', '/rubylib'
-    inreplace 'bin/brewcask-upgrade.rb', '/lib', '/rubylib'
+    prefix.install "lib" => "rubylib"
+    inreplace "bin/brewcask-outdated.rb", "/lib", "/rubylib"
+    inreplace "bin/brewcask-upgrade.rb", "/lib", "/rubylib"
 
-    prefix.install 'bin'
-    (bin+'brewcask-outdated.rb').chmod 0755
-    (bin+'brewcask-upgrade.rb').chmod 0755
-    (bin+'brew-script').chmod 0755
-    (bin+'update-launchctl-env').chmod 0755
-    (bin+'update-env').chmod 0755
-    
+    prefix.install "bin"
+    (bin+"brewcask-outdated.rb").chmod 0755
+    (bin+"brewcask-upgrade.rb").chmod 0755
+    (bin+"brew-script").chmod 0755
+    (bin+"update-launchctl-env").chmod 0755
+    (bin+"update-env").chmod 0755
+
     ohai "Preparing profile directory - please enter your password"
-    system '/bin/bash', 'script/prepare_profile', "#{HOMEBREW_PREFIX}"
+    system "/bin/bash", "script/prepare_profile", HOMEBREW_PREFIX.to_s
   end
-  
+
+  plist_options :manual => "update-launchctl-env"
+
   def plist; <<-EOS.undent
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -44,5 +43,8 @@ class ToonetownExtras < Formula
     </plist>
     EOS
   end
-  
+
+  test do
+    system "true"
+  end
 end
