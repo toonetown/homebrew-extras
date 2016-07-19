@@ -1,5 +1,0 @@
-###########
-# Changes directory to the given repository
-#
-#!/bin/bash
-cd "$(brew --repository "${1:-""}")"
