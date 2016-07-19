@@ -1,7 +1,9 @@
 if [ -x /usr/libexec/java_home ]; then
     export JAVA_HOME="$(/usr/libexec/java_home -v1.8 2>/dev/null)"
-	
+    
+	declare -a ON_JAVA_CHANGE
 	function use-java { 
 		export JAVA_HOME="$(/usr/libexec/java_home -v1.${1} 2>/dev/null)"
+        for i in "${ON_JAVA_CHANGE[@]}"; do ${i}; done
 	}
 fi
