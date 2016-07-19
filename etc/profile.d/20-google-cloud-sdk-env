@@ -1,5 +1,5 @@
-GCLOUD_DIR=/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
-[ -d ${GCLOUD_DIR} ] && {
+GCLOUD_DIR="$(brew --repository)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
+[ -d "${GCLOUD_DIR}" ] && {
     source "${GCLOUD_DIR}/path.bash.inc"
     source "${GCLOUD_DIR}/completion.bash.inc"
 }
