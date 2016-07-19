@@ -1,17 +1,9 @@
-require 'pathname'
-require 'formula'
+require "pathname"
+require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula")
 
-class JavaEnv < Formula
+class JavaEnv < EnvProfileFormula
+  desc "Sets the java environment and provides a `use-java` function"
+  env_file "10-java-env"
   version "1.15"
-  env_file = "10-java-env"
-  
-  depends_on "toonetown-extras"
-  homepage 'https://github.com/toonetown/homebrew-extras/'
-  url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
   sha256 "a917023f84c9c0efefefa141df6bbac0cfb58723f0b22bd23441a9abf8e1e145"
-
-  def install
-    (prefix+"etc/profile.d").install '10-java-env'
-    ohai "You must log out in order for the environment to take effect"
-  end
 end
