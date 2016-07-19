@@ -16,4 +16,8 @@ class Perforce < Formula
   def install
     bin.install "p4"
   end
+
+  test do
+    system "true"
+  end
 end

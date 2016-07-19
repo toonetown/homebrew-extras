@@ -1,12 +1,9 @@
-require "formula"
-
 class ScmPrompt < Formula
-  version "1"
+  desc "Adds scm info to your bash prompt"
   homepage "https://bitbucket.org/facebook/hg-experimental"
-  url "https://bitbucket.org/facebook/hg-experimental", :revision => "1621c564", :using => :hg
-  head "https://bitbucket.org/facebook/hg-experimental", :branch => "default", :using => :hg
-
-  depends_on :hg => :build
+  url "https://bitbucket.org/facebook/hg-experimental/get/2358e84ae63d.zip"
+  version "1"
+  sha256 "0670d88ea7d9f34a4b8d7f884dd7b75943b3e47efdba580dc3a352094aee74e2"
 
   skip_clean "bin"
 
@@ -26,5 +23,9 @@ class ScmPrompt < Formula
 
     You can install toonetown/extras/pretty-prompt to automatically set these as an auto-exec environment
     EOS
+  end
+
+  test do
+    system "true"
   end
 end

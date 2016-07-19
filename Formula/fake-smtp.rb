@@ -1,9 +1,9 @@
 class FakeSmtp < Formula
   desc "Fake SMTP Server with GUI for testing emails in applications"
-  homepage "http://nilhcem.github.io/FakeSMTP/"
-  url "http://nilhcem.github.com/FakeSMTP/downloads/fakeSMTP-latest.zip"
-  sha256 "afd49c9ba48ee44b9c7e0d3272ebdec11459ab3819999d1e6a46acd678332f9d"
+  homepage "https://nilhcem.github.io/FakeSMTP/"
+  url "https://nilhcem.github.com/FakeSMTP/downloads/fakeSMTP-latest.zip"
   version "2.0"
+  sha256 "afd49c9ba48ee44b9c7e0d3272ebdec11459ab3819999d1e6a46acd678332f9d"
 
   bottle :unneeded
 
@@ -46,5 +46,9 @@ class FakeSmtp < Formula
     </dict>
     </plist>
     EOS
+  end
+
+  test do
+    system "true"
   end
 end
