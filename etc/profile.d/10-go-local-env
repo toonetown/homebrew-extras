@@ -1,0 +1,6 @@
+GOROOT="$(brew --prefix go 2>/dev/null)/libexec" && {
+    export GOROOT
+    export GOPATH="${HOME}/.golang"
+    source update-env post PATH "${GOPATH}/bin"
+    source update-env post PATH "${GOROOT}/bin"
+}
