@@ -30,3 +30,5 @@ class GistFormula < Formula
     attr_rw :gist_hash, :gist_file, :gist_revision, :install_name
   end
 end
+
+def gist_formula; end

@@ -23,3 +23,5 @@ class EnvProfileFormula < Formula
     attr_rw :env_file
   end
 end
+
+def env_profile_formula; end

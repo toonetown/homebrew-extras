@@ -1,5 +1,5 @@
 require "pathname"
-require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula")
+require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula") unless defined?(env_profile_formula)
 
 class MavenEnv < EnvProfileFormula
   desc "Sets the values of M2_HOME and MAVEN_OPTS if maven is installed"

@@ -1,5 +1,5 @@
 require "pathname"
-require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula")
+require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula") unless defined?(env_profile_formula)
 
 class JavaEnv < EnvProfileFormula
   desc "Sets the java environment and provides a `use-java` function"

@@ -1,5 +1,5 @@
 require "pathname"
-require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula")
+require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula") unless defined?(env_profile_formula)
 
 class DockerEnv < EnvProfileFormula
   desc "Adds some commands to docker, docker-compose, and docker-machine"

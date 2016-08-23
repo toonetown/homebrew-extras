@@ -1,5 +1,5 @@
 require "pathname"
-require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula")
+require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula") unless defined?(env_profile_formula)
 
 class AndroidEnv < EnvProfileFormula
   desc "Sets ANDROID_HOME and ANDROID_NDK_HOME if packages are installed"

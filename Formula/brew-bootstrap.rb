@@ -1,5 +1,5 @@
 require "pathname"
-require Pathname(__FILE__).realpath.dirname.join("../lib", "gist-formula")
+require Pathname(__FILE__).realpath.dirname.join("../lib", "gist-formula") unless defined?(gist_formula)
 
 class BrewBootstrap < GistFormula
   desc "Bootstraps a Homebrew development environment"
