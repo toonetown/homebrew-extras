@@ -1,0 +1,5 @@
+if [ -n "${SSH_CONNECTION}" ]; then
+    which mate &>/dev/null && which rmate &>/dev/null && {
+        alias mate=rmate
+    }
+fi
