@@ -3,7 +3,7 @@ class ScmPrompt < Formula
   homepage "https://bitbucket.org/facebook/hg-experimental"
   url "https://bitbucket.org/facebook/hg-experimental/get/2358e84ae63d.zip"
   version "1"
-  sha256 "0670d88ea7d9f34a4b8d7f884dd7b75943b3e47efdba580dc3a352094aee74e2"
+  sha256 "abe4db99c7f5481ecefe178f6d784a3b668214058f834a56360cd092df002214"
 
   skip_clean "bin"
 
