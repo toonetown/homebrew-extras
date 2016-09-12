@@ -1,8 +1,8 @@
 class ToonetownExtras < Formula
   desc "Additional homebrew functionality, formulae, and casks"
   homepage "https://github.com/toonetown/homebrew-extras/"
-  url "https://github.com/toonetown/homebrew-extras/archive/v1.35.tar.gz"
-  sha256 "c0ee44b8eba99c4d386053965ef4e2540e7e9c05c9069176a36fdafb5a6820b6"
+  url "https://github.com/toonetown/homebrew-extras/archive/v1.39.tar.gz"
+  sha256 "b2341f7b1f44197d813422bbed7f2349739eb9ff7005acc9093a24cdffbd884c"
 
   head "https://github.com/toonetown/homebrew-extras.git", :branch => "master"
 
@@ -14,6 +14,7 @@ class ToonetownExtras < Formula
     inreplace "bin/brewcask-upgrade.rb", "/lib", "/rubylib"
 
     prefix.install "bin"
+    (bin+"brewcask-appcast").chmod 0755
     (bin+"brewcask-outdated.rb").chmod 0755
     (bin+"brewcask-upgrade.rb").chmod 0755
     (bin+"brew-script").chmod 0755
