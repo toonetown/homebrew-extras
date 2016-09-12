@@ -1,0 +1,115 @@
+###########
+# Manages appcast values for casks
+#
+#!/bin/bash
+set -o pipefail
+_UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36"
+_CURL_FLAGS=(--silent --location --header "User-Agent: ${_UA}")
+_QUIET="no"
+
+while [ $# -gt 0 ]; do
+    case "${1}" in
+        --url)   _MODE="url" ;;
+        --get)   _MODE="get" ;;
+        --new)   _MODE="new" ;;
+        --check) _MODE="check" ;;
+        --quiet) _QUIET="yes" ;;
+        --*)
+            echo "Invalid option ${1}..."                                                   >&2
+            echo ""                                                                         >&2
+            echo "Usage: ${0} [--quiet] [--url | --get | --new | --check] [cask [cask...]]" >&2
+            echo ""                                                                         >&2
+            echo "Manages the appcast information.  By default, '--check' is performed."    >&2
+            echo "If no casks are specified, then all installed casks will be checked."     >&2
+            echo ""                                                                         >&2
+            echo "If '--quiet' is specified, then only non-matching checks will be output." >&2
+            echo "This is the default if you do not specify a mode and if you do not"       >&2
+            echo "specify any casks."                                                       >&2
+            echo ""                                                                         >&2
+            echo "Modes:"                                                                   >&2
+            echo "    --url:   Output only the url for the given cask or casks"             >&2
+            echo "    --get:   Output only the current (in the file) hash of the appcast"   >&2
+            echo "    --new:   Output only the new (live, online) hash of the appcast"      >&2
+            echo "    --check: Checks the new and current hash against each other"          >&2
+            echo ""                                                                         >&2
+            exit 1
+            ;;
+        *) break ;;
+    esac
+    shift
+done
+
+if [ $# -eq 0 ]; then
+    _CASKS=( $(brew cask list) )
+    _ALL="yes"
+else
+    _CASKS=( $@ )
+    _ALL="no"
+fi
+
+if [ -z "${_MODE}" ]; then
+    _MODE="check"
+    if [ "${_ALL}" == "yes" ]; then _QUIET="yes"; fi
+fi
+
+appcast_url() {
+    case "${1}" in 
+        http://* | https://*) _URL="${1}" ;; 
+        *) _URL="$(brew cask _stanza appcast "${1}" 2>/dev/null)" ;; 
+    esac
+    [ -n "${_URL}" ] && echo "${_URL}" || return 1
+    return 0
+}
+
+current_checkpoint() {
+    brew cask _stanza --yaml appcast "${1}" | grep '^- :checkpoint' | awk '{print $3}'
+    return $?
+}
+
+new_checkpoint() {
+    curl "${_CURL_FLAGS[@]}" --compressed "$(appcast_url "${1}")" \
+    | sed 's|<pubDate>[^<]*</pubDate>||g' \
+    | shasum --algorithm 256 | awk '{ print $1 }'
+    return $?
+}
+
+check_appcast() {
+    _CURRENT="$(current_checkpoint "${1}")"
+}
+
+for _CASK in "${_CASKS[@]}"; do
+    # Get the URL - needed for all requests (and it's fast-ish)
+    _URL="$(appcast_url ${_CASK})" || { 
+        [ "${_ALL}" == "yes" ] || { echo "Warning: no appcast info for ${_CASK}" >&2; }
+        continue;
+    }
+    [ "${_QUIET}" != "yes" -o "${_MODE}" == "url" ] && {
+        case "${_CASK}" in http://* | https://*) ;; *) echo "${_CASK}: ${_URL}" ;; esac
+    }
+    [ "${_MODE}" != "url" ] || { continue; }
+    
+    # Get the checkpoint value (either from the file or live, or both)
+    [ "${_QUIET}" == "yes" ] && _CP="${_CASK}" || _CP="  Checkpoint"
+    [ "${_MODE}" == "get" -o "${_MODE}" == "check" ] && {
+        _CURRENT="$(current_checkpoint "${_CASK}")"
+        [ "${_MODE}" == "get" ] && echo "${_CP}: ${_CURRENT}"
+    }
+    [ "${_MODE}" == "new" -o "${_MODE}" == "check" ] && {
+        _NEW="$(new_checkpoint "${_URL}")"
+        [ "${_MODE}" == "new" ] && echo "${_CP}: ${_NEW}"
+    }
+    
+    # Display the check value
+    [ "${_MODE}" == "check" ] && {
+        [ "${_CURRENT}" == "${_NEW}" ] && {
+            [ "${_QUIET}" == "yes" ] || echo "  Checkpoint: ${_CURRENT}"
+        } || {
+            echo "Mismatched checkpoint for ${_CASK}:" >&2
+            echo "    Current: ${_CURRENT}" >&2
+            echo "     Actual: ${_NEW}" >&2
+            _HAS_ERRORS="yes"
+        }
+    }
+done
+
+if [ "${_HAS_ERRORS}" == "yes" ]; then exit 1; else exit 0; fi
