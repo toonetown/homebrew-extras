@@ -80,7 +80,7 @@ check_appcast() {
 for _CASK in "${_CASKS[@]}"; do
     # Get the URL - needed for all requests (and it's fast-ish)
     _URL="$(appcast_url ${_CASK})" || { 
-        [ "${_ALL}" == "yes" ] || { echo "Warning: no appcast info for ${_CASK}" >&2; }
+        [ "${_ALL}" == "yes" -o "${_QUIET}" == "yes" ] || { echo "Warning: no appcast info for ${_CASK}" >&2; }
         continue;
     }
     [ "${_QUIET}" != "yes" -o "${_MODE}" == "url" ] && {
