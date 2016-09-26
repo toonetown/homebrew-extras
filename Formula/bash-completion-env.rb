@@ -4,6 +4,6 @@ require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula"
 class BashCompletionEnv < EnvProfileFormula
   desc "Loads all the homebrew-installed bash completion scripts"
   env_file "10-bash-completion-env"
-  version "1.16"
-  sha256 "54a43a34bf8ba49ba7314985cd4a54b8d9a4deb9ff3fc84719952177dc7d7b9d"
+  version "1.41"
+  sha256 "9a0e8031282d157e7cbf73df7b1d28aae2a2b2a3ae3d8c4c7ee1a09e176f31db"
 end
