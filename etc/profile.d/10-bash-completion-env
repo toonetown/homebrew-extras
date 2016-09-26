@@ -1,3 +1,9 @@
-if [ "${BASH-no}" != "no" -a -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
+# Check for interactive bash and that we haven't already been sourced.
+[ -z "$BASH_VERSION" -o -z "$PS1" -o -n "$BASH_COMPLETION" -o "${BASH-no}" != "/bin/bash" ] && {
+    export BASH_COMPLETION=no
+    export BASH_COMPLETION_DIR=no
+    export BASH_COMPLETION_COMPAT_DIR=no
+    return
+}
+
+[ -f "${_BREW_PFX:=$(brew --prefix)}/etc/bash_completion" ] && . "${_BREW_PFX}/etc/bash_completion"

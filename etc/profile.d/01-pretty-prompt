@@ -1,48 +1,52 @@
-if [ "${BASH-no}" != "no" ]; then
-    __pp_color() {
-        case "${1}" in
-            black)
-                echo -n "0"
-                ;;
-            red)
-                echo -n "1"
-                ;;
-            green)
-                echo -n "2"
-                ;;
-            yellow)
-                echo -n "3"
-                ;;
-            blue)
-                echo -n "4"
-                ;;
-            magenta)
-                echo -n "5"
-                ;;
-            cyan)
-                echo -n "6"
-                ;;
-            white)
-                echo -n "7"
-                ;;
-            *)
-                echo "Invalid color: ${1}" >&2
-                return 1
-                ;;
-        esac
-    }
+# Check for interactive bash.
+[ -z "$BASH_VERSION" -o -z "$PS1" -o "${BASH-no}" != "/bin/bash" ] && { 
+    export PS1="\u@\h \W # "
+    return
+}
 
-    : ${PP_USER_COLOR:=green}
-    : ${PP_PATH_COLOR:=blue}
-    : ${PP_ROOT_USER_COLOR:=red}
+__pp_color() {
+    case "${1}" in
+        black)
+            echo -n "0"
+            ;;
+        red)
+            echo -n "1"
+            ;;
+        green)
+            echo -n "2"
+            ;;
+        yellow)
+            echo -n "3"
+            ;;
+        blue)
+            echo -n "4"
+            ;;
+        magenta)
+            echo -n "5"
+            ;;
+        cyan)
+            echo -n "6"
+            ;;
+        white)
+            echo -n "7"
+            ;;
+        *)
+            echo "Invalid color: ${1}" >&2
+            return 1
+            ;;
+    esac
+}
 
-    export CLICOLOR=1
-    export LSCOLORS=ExFxCxDxBxegedabagacad
-    [ "$(id -u)" == "0" ] && { _MY_COLOR="${PP_ROOT_USER_COLOR}"; } || { _MY_COLOR="${PP_USER_COLOR}"; }
-    which scm-prompt &>/dev/null && {
-        source "$(brew --prefix scm-prompt)/bin/scm-prompt"
-        export PS1="\[\e[0;3$(__pp_color ${_MY_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W\$(_scm_prompt) \$ \[\e[m\]"
-    } || {
-        export PS1="\[\e[0;3$(__pp_color ${_MY_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W \$ \[\e[m\]"
-    }
-fi
+: ${PP_USER_COLOR:=green}
+: ${PP_PATH_COLOR:=blue}
+: ${PP_ROOT_USER_COLOR:=red}
+
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+[ "$(id -u)" == "0" ] && { _MY_COLOR="${PP_ROOT_USER_COLOR}"; } || { _MY_COLOR="${PP_USER_COLOR}"; }
+[ -n "${_SCM_PROMPT:=$(which scm-prompt)}" ] && {
+    source "${_SCM_PROMPT}"
+    export PS1="\[\e[0;3$(__pp_color ${_MY_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W\$(_scm_prompt) \$ \[\e[m\]"
+} || {
+    export PS1="\[\e[0;3$(__pp_color ${_MY_COLOR})m\]\u@\h \[\e[0;3$(__pp_color ${PP_PATH_COLOR})m\]\W \$ \[\e[m\]"
+}
