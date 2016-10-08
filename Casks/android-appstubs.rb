@@ -7,7 +7,6 @@ cask 'android-appstubs' do
           checkpoint: '68c904130013999190a0c7e7795e7f9048ffb2b3a1530e6318ab4f00da8b00aa'
   name 'Android App Stubs'
   homepage 'https://github.com/toonetown/android-appstubs/'
-  license :oss
 
   app 'Android AVD Manager.app', target: 'Android/Android AVD Manager.app'
   app 'Android SDK Manager.app', target: 'Android/Android SDK Manager.app'
