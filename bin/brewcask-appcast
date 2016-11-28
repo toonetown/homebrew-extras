@@ -10,28 +10,30 @@ _QUIET="no"
 while [ $# -gt 0 ]; do
     case "${1}" in
         --url)   _MODE="url" ;;
+        --fetch) _MODE="fetch" ;;
         --get)   _MODE="get" ;;
         --new)   _MODE="new" ;;
         --check) _MODE="check" ;;
         --quiet) _QUIET="yes" ;;
         --*)
-            echo "Invalid option ${1}..."                                                   >&2
-            echo ""                                                                         >&2
-            echo "Usage: ${0} [--quiet] [--url | --get | --new | --check] [cask [cask...]]" >&2
-            echo ""                                                                         >&2
-            echo "Manages the appcast information.  By default, '--check' is performed."    >&2
-            echo "If no casks are specified, then all installed casks will be checked."     >&2
-            echo ""                                                                         >&2
-            echo "If '--quiet' is specified, then only non-matching checks will be output." >&2
-            echo "This is the default if you do not specify a mode and if you do not"       >&2
-            echo "specify any casks."                                                       >&2
-            echo ""                                                                         >&2
-            echo "Modes:"                                                                   >&2
-            echo "    --url:   Output only the url for the given cask or casks"             >&2
-            echo "    --get:   Output only the current (in the file) hash of the appcast"   >&2
-            echo "    --new:   Output only the new (live, online) hash of the appcast"      >&2
-            echo "    --check: Checks the new and current hash against each other"          >&2
-            echo ""                                                                         >&2
+            echo "Invalid option ${1}..."                                                             >&2
+            echo ""                                                                                   >&2
+            echo "Usage: ${0} [--quiet] [--url | --fetch | --get | --new | --check] [cask [cask...]]" >&2
+            echo ""                                                                                   >&2
+            echo "Manages the appcast information.  By default, '--check' is performed."              >&2
+            echo "If no casks are specified, then all installed casks will be checked."               >&2
+            echo ""                                                                                   >&2
+            echo "If '--quiet' is specified, then only non-matching checks will be output."           >&2
+            echo "This is the default if you do not specify a mode and if you do not"                 >&2
+            echo "specify any casks."                                                                 >&2
+            echo ""                                                                                   >&2
+            echo "Modes:"                                                                             >&2
+            echo "    --url:   Output only the url for the given cask or casks"                       >&2
+            echo "    --fetch: Output the contents of the appcast url for the given cask or casks"    >&2
+            echo "    --get:   Output only the current (in the file) hash of the appcast"             >&2
+            echo "    --new:   Output only the new (live, online) hash of the appcast"                >&2
+            echo "    --check: Checks the new and current hash against each other"                    >&2
+            echo ""                                                                                   >&2
             exit 1
             ;;
         *) break ;;
@@ -66,10 +68,12 @@ current_checkpoint() {
     return $?
 }
 
+appcast_fetch() {
+    curl "${_CURL_FLAGS[@]}" --compressed "$(appcast_url "${1}")"
+}
+
 new_checkpoint() {
-    curl "${_CURL_FLAGS[@]}" --compressed "$(appcast_url "${1}")" \
-    | sed 's|<pubDate>[^<]*</pubDate>||g' \
-    | shasum --algorithm 256 | awk '{ print $1 }'
+    appcast_fetch "${1}" | sed 's|<pubDate>[^<]*</pubDate>||g' | shasum --algorithm 256 | awk '{ print $1 }'
     return $?
 }
 
@@ -87,6 +91,8 @@ for _CASK in "${_CASKS[@]}"; do
         case "${_CASK}" in http://* | https://*) ;; *) echo "${_CASK}: ${_URL}" ;; esac
     }
     [ "${_MODE}" != "url" ] || { continue; }
+    
+    [ "${_MODE}" == "fetch" ] && { appcast_fetch "${_CASK}"; continue; }
     
     # Get the checkpoint value (either from the file or live, or both)
     [ "${_QUIET}" == "yes" ] && _CP="${_CASK}" || _CP="  Checkpoint"
