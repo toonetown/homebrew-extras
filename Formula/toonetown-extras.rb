@@ -1,8 +1,8 @@
 class ToonetownExtras < Formula
   desc "Additional homebrew functionality, formulae, and casks"
   homepage "https://github.com/toonetown/homebrew-extras/"
-  url "https://github.com/toonetown/homebrew-extras/archive/v1.40.tar.gz"
-  sha256 "ccbced83f30cad6d5fa5aebd5b1c1ce741947850166dee83bec7e808761927c7"
+  url "https://github.com/toonetown/homebrew-extras/archive/v1.42.tar.gz"
+  sha256 "58aabc94fbadbc4e14f95fdf9f2dcc650de5513a578878674960339e9daff9c2"
 
   head "https://github.com/toonetown/homebrew-extras.git", :branch => "master"
 
