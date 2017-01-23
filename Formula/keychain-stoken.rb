@@ -5,8 +5,8 @@ class KeychainStoken < GistFormula
   desc "Manages stoken with macOS keychain storage"
   gist_hash "b7f1a241d45812402d3d5757bd0eb968"
   gist_file "keychain-stoken"
-  gist_revision "f5c8c28d"
-  version "1"
+  gist_revision "86480773"
+  version "2"
 
   depends_on "stoken"
 end
