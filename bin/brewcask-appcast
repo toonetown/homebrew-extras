@@ -64,7 +64,7 @@ appcast_url() {
 }
 
 current_checkpoint() {
-    brew cask _stanza --yaml appcast "${1}" | grep '^- :checkpoint' | awk '{print $3}'
+    brew cask _appcast_checkpoint "${1}"
     return $?
 }
 
@@ -73,7 +73,7 @@ appcast_fetch() {
 }
 
 new_checkpoint() {
-    appcast_fetch "${1}" | sed 's|<pubDate>[^<]*</pubDate>||g' | shasum --algorithm 256 | awk '{ print $1 }'
+    brew cask _appcast_checkpoint --calculate "${1}"
     return $?
 }
 
