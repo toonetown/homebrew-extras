@@ -22,6 +22,8 @@ while [ $# -gt 0 ]; do
             echo ""                                                                                   >&2
             echo "Manages the appcast information.  By default, '--check' is performed."              >&2
             echo "If no casks are specified, then all installed casks will be checked."               >&2
+            echo "If you specify the string \"all\" as the cask, then all available casks"            >&2
+						echo "will be checked."               																										>&2
             echo ""                                                                                   >&2
             echo "If '--quiet' is specified, then only non-matching checks will be output."           >&2
             echo "This is the default if you do not specify a mode and if you do not"                 >&2
@@ -44,6 +46,10 @@ done
 if [ $# -eq 0 ]; then
     _CASKS=( $(brew cask list) )
     _ALL="yes"
+elif [ "${1}" == "all" ]; then
+		_CASKS=( $(brew cask search) )
+		_ALL="yes"
+		shift
 else
     _CASKS=( $@ )
     _ALL="no"
