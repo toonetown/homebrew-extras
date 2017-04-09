@@ -14,6 +14,8 @@ class ShimoPulseVpn < GistFormula
     following contents:
       %admin   ALL=(root) NOPASSWD: /usr/local/bin/shimo-pulse-vpn
       Defaults env_keep += "PULSE_VPN_USER PULSE_VPN_CONF PULSE_VPN_HOST PULSE_VPN_TEST_HOST PULSE_KEYCHAIN_ITEM"
+
+    It will also read a password from "${HOME}/.pulse-keychain" to unlock your OS X keychain to get passwords.
     EOS
   end
 end
