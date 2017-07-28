@@ -1,8 +1,8 @@
 class GitScripts < Formula
   desc "Additional git extension scripts"
   homepage "https://github.com/toonetown/git-scripts/"
-  url "https://github.com/toonetown/git-scripts/archive/v1.9.tar.gz"
-  sha256 "8b0f8e1b1ba6b2adfd32828e9d2e63ce47cf84188324fdd504b4c9ca4763b50e"
+  url "https://github.com/toonetown/git-scripts/archive/v1.10.tar.gz"
+  sha256 "bcdd8a89008ea1586e50002de24e3372b5ab170b81b7781025289e402914e67b"
 
   head "https://github.com/toonetown/git-scripts.git", :branch => "master"
 
