@@ -5,8 +5,8 @@ class ShimoPulseVpn < GistFormula
   desc "Connects Shimo to PulseSecure hosts"
   gist_hash "b45ccff51065cc33d982c10989c85590"
   gist_file "shimo-pulse-vpn"
-  gist_revision "e89b0e0f"
-  version "6"
+  gist_revision "d5458c5b"
+  version "7"
 
   def caveats; <<-EOS.undent
     This script leverages sudo to work.  If you would like for this script to run without prompting for a password,
