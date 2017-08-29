@@ -5,8 +5,8 @@ class AliasLocal < GistFormula
   desc "Aliases localhost to an address"
   gist_hash "6015487b1ba11c69afad0b6429ecdd28"
   gist_file "alias-local"
-  gist_revision "46af8c59"
-  version "2"
+  gist_revision "95c381ae"
+  version "3"
 
   def caveats; <<-EOS.undent
     This script leverages sudo to work.  If you would like for this script to run without prompting for a password,
