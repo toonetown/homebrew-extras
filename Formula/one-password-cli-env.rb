@@ -4,6 +4,6 @@ require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula"
 class OnePasswordCliEnv < EnvProfileFormula
   desc "Wraps the 'op' command with signin/signout helpers"
   env_file "20-1password-cli-env"
-  version "1.47"
-  sha256 "75fede3e65fd8bbf353f3d6a9657da9203df8477b4610eec43a5c6061ac734c4"
+  version "1.48"
+  sha256 "a018a6f7be96e17c1f8a2313681c06cb133ecac457ad3fcf4d020661c08bd2a4"
 end
