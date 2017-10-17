@@ -4,6 +4,6 @@ require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula"
 class JavaEnv < EnvProfileFormula
   desc "Sets the java environment and provides a `use-java` function"
   env_file "10-java-env"
-  version "1.41"
-  sha256 "50aea48ad3452b8c3575beb6b39cd2278258e734acd4a699b750a891c63beeb8"
+  version "1.49"
+  sha256 "69057fc1a5316796c149678e423d97b1bb16dc03ff458818ba0597decce803cd"
 end
