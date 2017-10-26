@@ -4,7 +4,7 @@ cask 'android-appstubs' do
 
   url "https://github.com/toonetown/android-appstubs/releases/download/v#{version}/android-appstubs-#{version}.tar.gz"
   appcast 'https://github.com/toonetown/android-appstubs/releases.atom',
-          checkpoint: '68c904130013999190a0c7e7795e7f9048ffb2b3a1530e6318ab4f00da8b00aa'
+          checkpoint: '878c72f0d9c4cd698903eece821bc2bde9987fd01b9a3f7b848ab8eadcad70dd'
   name 'Android App Stubs'
   homepage 'https://github.com/toonetown/android-appstubs/'
 
