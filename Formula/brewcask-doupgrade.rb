@@ -5,7 +5,7 @@ class BrewcaskUpgrade < GistFormula
   desc "Adds an 'upgrade' action for brew-cask"
   gist_hash "657606a8bac754eb2856f53e5001b4a3"
   gist_file "brewcask-upgrade"
-  install_name "brewcask-upgrade"
+  install_name "brewcask-doupgrade"
   gist_revision "79f481de"
   version "1.1"
 end
