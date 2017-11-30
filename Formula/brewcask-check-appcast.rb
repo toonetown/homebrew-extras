@@ -6,6 +6,6 @@ class BrewcaskCheckAppcast < GistFormula
   gist_hash "10e99bc35085a01851ab296e1e5f5379"
   gist_file "brewcask-check-appcast"
   install_name "brewcask-check-appcast"
-  gist_revision "be61887a"
-  version "1.0"
+  gist_revision "3c9c5800"
+  version "1.1"
 end
