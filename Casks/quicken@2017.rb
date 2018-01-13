@@ -1,10 +1,10 @@
 cask 'quicken@2017' do
-  version '46.19238.100'
-  sha256 '688fc465c36b12e08ee7fe8739ed506bdc26339069a69434882516e181ccee6b'
+  version '46.19304.100'
+  sha256 '4ef55d1146aec49985a142426e02200b5979cff11bfac83793db304399293dcd'
 
   url "https://download.quicken.com/mac/Quicken2017/001/Release/88A2D0E2-FEA5-4251-A92E-6488AD26B7AC/Quicken2017-#{version}/Quicken2017-#{version}.zip"
   appcast 'https://download.quicken.com/mac/Quicken2017/001/Release/88A2D0E2-FEA5-4251-A92E-6488AD26B7AC/appcast.xml',
-          checkpoint: '0a6116ddcca0e0329f57264f3bb79b8bfcc5030e47abc42430457357c60e1108'
+          checkpoint: '175fe342b42cf9ed18893048e6d04dd0f4497a761f36e11c059b5115133d2d4c'
   name 'Quicken 2017'
   homepage 'https://quicken.com/'
 
