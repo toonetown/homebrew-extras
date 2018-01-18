@@ -12,7 +12,7 @@ class ScmPrompt < Formula
     bin.install "scripts/scm-prompt.sh" => "scm-prompt"
   end
 
-  def caveats; <<~EOS.undent
+  def caveats; <<~EOS
     You will want to load this script in your ~/.bash_profile as follows:
       which scm-prompt &>/dev/null && {
         source "$(brew --prefix scm-prompt)/bin/scm-prompt"
