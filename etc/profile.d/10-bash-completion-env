@@ -6,4 +6,7 @@
     return
 }
 
-[ -f "${_BREW_PFX:=$(brew --prefix)}/etc/bash_completion" ] && . "${_BREW_PFX}/etc/bash_completion"
+[ -f "${_BREW_PFX:=$(brew --prefix)}/etc/bash_completion" ] && {
+    . "${_BREW_PFX}/etc/bash_completion"
+    complete -cf sudo
+}
