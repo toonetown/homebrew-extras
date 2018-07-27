@@ -4,6 +4,6 @@ require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula"
 class PrettyPrompt < EnvProfileFormula
   desc "Sets colors of the prompt and loads scm-prompt if installed"
   env_file "01-pretty-prompt"
-  version "1.41"
-  sha256 "fdfced6af45893ae16ea8d1d574cbd63aabd1e4460846d0cacda859d42db2a70"
+  version "1.53"
+  sha256 "90e97118414e579949687e9510802c89ca7d5d4f56062c8fc02503c8fec91fe1"
 end
