@@ -18,13 +18,13 @@ class ToonetownExtras < Formula
     (bin+"update-env").chmod 0755
   end
 
-  plist_options :manual => "update-launchctl-env"
-
   def caveats; <<~EOS
     To set up the environment variables, run:
       #{prefix}/script/prepare_profile #{HOMEBREW_PREFIX.to_s}
     EOS
   end
+
+  plist_options :manual => "update-launchctl-env"
 
   def plist; <<~EOS
     <?xml version="1.0" encoding="UTF-8"?>
