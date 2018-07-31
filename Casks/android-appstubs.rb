@@ -3,8 +3,7 @@ cask 'android-appstubs' do
   sha256 'c1151e3fa9a5b5139b1e10d66f05ab00c60ffd6bd754a630cc411f6a7db067d8'
 
   url "https://github.com/toonetown/android-appstubs/releases/download/v#{version}/android-appstubs-#{version}.tar.gz"
-  appcast 'https://github.com/toonetown/android-appstubs/releases.atom',
-          checkpoint: '878c72f0d9c4cd698903eece821bc2bde9987fd01b9a3f7b848ab8eadcad70dd'
+  appcast 'https://github.com/toonetown/android-appstubs/releases.atom'
   name 'Android App Stubs'
   homepage 'https://github.com/toonetown/android-appstubs/'
 
