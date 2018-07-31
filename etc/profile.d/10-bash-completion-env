@@ -1,5 +1,5 @@
 # Check for interactive bash and that we haven't already been sourced.
-[ -z "$BASH_VERSION" -o -z "$PS1" -o -n "$BASH_COMPLETION" -o "${BASH-no}" != "/bin/bash" ] && {
+[ -z "$BASH_VERSION" -o -z "$PS1" -o -n "$BASH_COMPLETION" -o "${BASH-no}" == "no" ] && {
     export BASH_COMPLETION=no
     export BASH_COMPLETION_DIR=no
     export BASH_COMPLETION_COMPAT_DIR=no
