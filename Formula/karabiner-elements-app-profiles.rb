@@ -14,6 +14,8 @@ class KarabinerElementsAppProfiles < Formula
     prefix.install "net.sabi.Karabiner-Elements-App-Profiles.plist"
   end
 
+  plist_options :manual => "karabiner-elements-app-profiles"
+
   def plist
     (prefix/"net.sabi.Karabiner-Elements-App-Profiles.plist").read
   end
