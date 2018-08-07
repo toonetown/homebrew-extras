@@ -1,5 +1,5 @@
 # Check for interactive bash.
-[ -z "$BASH_VERSION" -o -z "$PS1" -o "${BASH-no}" == "no" ] && return
+[ -z "$BASH_VERSION" -o -z "$PS1" -o "${BASH-no}" != "/bin/bash" ] && return
 
 # Sets some helper functions for docker instances
 which docker >/dev/null && which docker-machine >/dev/null && {
