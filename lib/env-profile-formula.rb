@@ -11,7 +11,7 @@ class EnvProfileFormula < Formula
   end
 
   def install
-    (prefix+"etc/profile.d").install self.class.env_file
+    (prefix+"etc/profile.d").install "profile.d" => self.class.env_file
     ohai "You must log out in order for the environment to take effect"
   end
 
