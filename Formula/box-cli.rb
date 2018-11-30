@@ -4,7 +4,7 @@ class BoxCli < Formula
   desc "Manage and interact with Box services"
   homepage "https://developer.box.com/docs/box-cli"
   url "https://cloud.box.com/shared/static/#{url_hash}"
-  version "1.3.0"
+  version "1.4.0"
   sha256 "dc744b09a77eaf8f0bc4506d4b81b081e28a184024007edbb2c1be91c43b3c7f"
 
   bottle :unneeded
