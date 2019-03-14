@@ -5,6 +5,6 @@ class MateEditor < GistFormula
   desc "Mate wraper for EDITOR variable"
   gist_hash "bb6bc9e8476b1a591dd25faa7e180acb"
   gist_file "mate-editor"
-  gist_revision "1a4c2cd8"
-  version "1"
+  gist_revision "d07b89a7"
+  version "2"
 end
