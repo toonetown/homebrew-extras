@@ -5,8 +5,8 @@ class ShimoSshuttle < GistFormula
   desc "Connects to sshuttle tunnel using Shimo"
   gist_hash "a0ad54becce8d7a9cbbea66ef7619ef7"
   gist_file "shimo-sshuttle"
-  gist_revision "dea21ed8"
-  version "4"
+  gist_revision "44681ebd"
+  version "5"
 
   depends_on "sshuttle"
 
