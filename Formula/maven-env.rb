@@ -4,6 +4,6 @@ require Pathname(__FILE__).realpath.dirname.join("../lib", "env-profile-formula"
 class MavenEnv < EnvProfileFormula
   desc "Sets the values of M2_HOME and MAVEN_OPTS if maven is installed"
   env_file "10-maven-env"
-  version "1.55"
-  sha256 "f45a3278fe104bffb480d211566dec9e197164394a5fdd5e2613013862fd40c1"
+  version "1.58"
+  sha256 "bd6697d9012e0fb39f906c3048caae85d7b64a16d702938313cfce5be4b633eb"
 end
