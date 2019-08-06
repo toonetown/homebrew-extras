@@ -1,7 +1,7 @@
 if [ -x /usr/libexec/java_home ]; then
-    export JAVA_HOME="$(/usr/libexec/java_home -v1.8 2>/dev/null)"
+  export JAVA_HOME="$(/usr/libexec/java_home -v12 2>/dev/null)"
     
-    [ -z "$BASH_VERSION" -o -z "$PS1" -o "${BASH-no}" != "/bin/bash" ] && return
+  [ -z "$BASH_VERSION" -o -z "$PS1" -o "${BASH-no}" != "/bin/bash" ] && return
 	declare -a ON_JAVA_CHANGE
 	use-java() { 
 		[ -n "${1}" ] || {
@@ -15,6 +15,6 @@ if [ -x /usr/libexec/java_home ]; then
 		}
 		_V="$(echo "${1}" | sed -E 's/^([678])/1.\1/g')"
 		export JAVA_HOME="$(/usr/libexec/java_home -v${_V} 2>/dev/null)"
-        for i in "${ON_JAVA_CHANGE[@]}"; do ${i}; done
+    for i in "${ON_JAVA_CHANGE[@]}"; do ${i}; done
 	}
 fi
