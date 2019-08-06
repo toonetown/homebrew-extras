@@ -5,10 +5,10 @@ which mvn >/dev/null && {
     [ -z "$BASH_VERSION" -o -z "$PS1" -o "${BASH-no}" != "/bin/bash" ] && return
     declare -a ON_JAVA_CHANGE; ON_JAVA_CHANGE+=("update_perm_size")
     update_perm_size() {
-        [ "$(java -version 2>&1 | sed -nE 's/^java version "1\.([0-9]+)\..*"$/\1/p')" -ge 8 ] 2>/dev/null && { 
-            source update-env del MAVEN_OPTS "-XX:MaxPermSize=256m" " "
+        [ "$(java -version 2>&1 | sed -nE 's/^java version "1\.([0-9]+)\..*"$/\1/p')" -lt 8 ] 2>/dev/null && { 
+          source update-env post MAVEN_OPTS "-XX:MaxPermSize=256m" " "
         } || {
-            source update-env post MAVEN_OPTS "-XX:MaxPermSize=256m" " "
+          source update-env del MAVEN_OPTS "-XX:MaxPermSize=256m" " "
         }
     }
 
