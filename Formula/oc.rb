@@ -5,8 +5,8 @@ class Oc < GistFormula
   desc "Openconnect helper script"
   gist_hash "5d09b777cb722bffbcb74f48bc887531"
   gist_file "oc"
-  gist_revision "79eeb6bb"
-  version "1"
+  gist_revision "a362b9f9"
+  version "4"
 
   depends_on "openconnect"
 
