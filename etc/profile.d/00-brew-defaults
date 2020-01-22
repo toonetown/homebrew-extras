@@ -1,0 +1,4 @@
+which brew &>/dev/null && {
+  export HOMEBREW_NO_AUTO_UPDATE="yes"
+  source update-env post HOMEBREW_CASK_OPTS "--no-quarantine" " "; export HOMEBREW_CASK_OPTS
+}
