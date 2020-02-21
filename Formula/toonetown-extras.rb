@@ -1,8 +1,8 @@
 class ToonetownExtras < Formula
   desc "Additional homebrew functionality, formulae, and casks"
   homepage "https://github.com/toonetown/homebrew-extras/"
-  url "https://github.com/toonetown/homebrew-extras/archive/v1.62.tar.gz"
-  sha256 "47de4343c774a25327fafd1198bf8b60127bff6a8eca3cda4dca029a9c67d304"
+  url "https://github.com/toonetown/homebrew-extras/archive/v1.63.tar.gz"
+  sha256 "cb94734751af6537a50d2ebd7a11cb18be99d5ebf104ba89c6bbcd50bdc2e606"
 
   head "https://github.com/toonetown/homebrew-extras.git", :branch => "master"
 
@@ -17,8 +17,8 @@ class ToonetownExtras < Formula
     (bin+"update-launchctl-env").chmod 0755
     (bin+"update-env").chmod 0755
     
-    (prefix+"etc/profile.d").install "etc/profile.d/00-brew-defaults"
-    (prefix+"etc/profile.d").install "etc/profile.d/00-bash-warning"
+    (prefix+"etc/profile.d").install "etc/profile.d/01-brew-defaults"
+    (prefix+"etc/profile.d").install "etc/profile.d/01-bash-warning"
     if ENV["SHELL"] != "/bin/bash"
       system "chsh", "-s", "/bin/bash"
     end
