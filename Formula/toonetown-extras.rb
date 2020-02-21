@@ -16,7 +16,7 @@ class ToonetownExtras < Formula
     (bin+"brew-script").chmod 0755
     (bin+"update-launchctl-env").chmod 0755
     (bin+"update-env").chmod 0755
-    
+
     (prefix+"etc/profile.d").install "etc/profile.d/01-brew-defaults"
     (prefix+"etc/profile.d").install "etc/profile.d/01-bash-warning"
     if ENV["SHELL"] != "/bin/bash"
@@ -26,8 +26,8 @@ class ToonetownExtras < Formula
 
   def caveats; <<~EOS
     To set up the environment variables, run:
-      #{prefix}/script/prepare_profile #{HOMEBREW_PREFIX.to_s}
-    EOS
+      #{prefix}/script/prepare_profile #{HOMEBREW_PREFIX}
+  EOS
   end
 
   plist_options :manual => "update-launchctl-env"
@@ -47,7 +47,7 @@ class ToonetownExtras < Formula
         <true/>
     </dict>
     </plist>
-    EOS
+  EOS
   end
 
   test do

@@ -15,6 +15,6 @@ class Oc < GistFormula
     you can create a sudoers file by running 'sudo visudo -f /etc/sudoers.d/oc' and giving it the following contents:
       %admin  ALL=(root) NOPASSWD: /usr/local/bin/oc
       Defaults env_keep += "OC_CONFIG"
-    EOS
+  EOS
   end
 end

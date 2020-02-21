@@ -45,7 +45,7 @@ class FakeSmtp < Formula
       <string>#{var}/log/fake-smtp.log</string>
     </dict>
     </plist>
-    EOS
+  EOS
   end
 
   test do

@@ -10,16 +10,20 @@ cask 'logitech-harmony-remote' do
   pkg '.logitech-2.0.4a90.pkg'
 
   preflight do
-    system_command '/usr/bin/ditto', 
-                   args: [ "#{staged_path}/.logitech-2.0.4a90.pkg", 
-                           '/Volumes/LogitechHarmonyRemoteSoftware/.logitech-2.0.4a90.pkg' ], 
+    system_command '/usr/bin/ditto',
+                   args: [
+                           "#{staged_path}/.logitech-2.0.4a90.pkg",
+                           '/Volumes/LogitechHarmonyRemoteSoftware/.logitech-2.0.4a90.pkg',
+                         ],
                    sudo: true
   end
 
   postflight do
-    system_command '/bin/rm', args: [ '-rf', '/Volumes/LogitechHarmonyRemoteSoftware' ], sudo: true
+    system_command '/bin/rm', args: ['-rf', '/Volumes/LogitechHarmonyRemoteSoftware'], sudo: true
   end
 
-  uninstall pkgutil: [ 'com.Belcarra.driver.LogitechHarmony',
-                       'com.logitech.harmony.cappuccino.client.logitech' ]
+  uninstall pkgutil: [
+                       'com.Belcarra.driver.LogitechHarmony',
+                       'com.logitech.harmony.cappuccino.client.logitech',
+                     ]
 end

@@ -13,6 +13,6 @@ class AliasLocal < GistFormula
     you can create a sudoers file by running 'sudo visudo -f /etc/sudoers.d/shimo-alias-local' and giving it the
     following contents:
       %admin  ALL=(root) NOPASSWD: /usr/local/bin/alias-local
-    EOS
+  EOS
   end
 end

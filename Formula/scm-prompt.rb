@@ -22,7 +22,7 @@ class ScmPrompt < Formula
       }
 
     You can install toonetown/extras/pretty-prompt to automatically set these as an auto-exec environment
-    EOS
+  EOS
   end
 
   test do

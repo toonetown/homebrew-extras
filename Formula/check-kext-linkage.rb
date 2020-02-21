@@ -14,6 +14,6 @@ class CheckKextLinkage < GistFormula
     following contents:
       %admin  ALL=(root) NOPASSWD: /usr/local/bin/check-kext-linkage
       Defaults env_keep += "TMPDIR"
-    EOS
+  EOS
   end
 end
