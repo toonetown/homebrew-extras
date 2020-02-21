@@ -1,8 +1,8 @@
 class ToonetownExtras < Formula
   desc "Additional homebrew functionality, formulae, and casks"
   homepage "https://github.com/toonetown/homebrew-extras/"
-  url "https://github.com/toonetown/homebrew-extras/archive/v1.60.tar.gz"
-  sha256 "64592b0a9a0481b1be054251de18f5b7b579a9e87d53fe37f137a9913b3af609"
+  url "https://github.com/toonetown/homebrew-extras/archive/v1.62.tar.gz"
+  sha256 "47de4343c774a25327fafd1198bf8b60127bff6a8eca3cda4dca029a9c67d304"
 
   head "https://github.com/toonetown/homebrew-extras.git", :branch => "master"
 
@@ -19,7 +19,9 @@ class ToonetownExtras < Formula
     
     (prefix+"etc/profile.d").install "etc/profile.d/00-brew-defaults"
     (prefix+"etc/profile.d").install "etc/profile.d/00-bash-warning"
-    system "chsh", "-s", "/bin/bash"
+    if ENV["SHELL"] != "/bin/bash"
+      system "chsh", "-s", "/bin/bash"
+    end
   end
 
   def caveats; <<~EOS
