@@ -5,6 +5,6 @@ class Swup < GistFormula
   desc "Software updating script"
   gist_hash "65b4ab33286c584fd678eceb23365cb1"
   gist_file "swup"
-  gist_revision "4bc1410c"
-  version "13"
+  gist_revision "ac7d4219"
+  version "14"
 end
