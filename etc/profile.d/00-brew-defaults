@@ -1,4 +1,12 @@
 which brew &>/dev/null && {
   export HOMEBREW_NO_AUTO_UPDATE="yes"
   source update-env post HOMEBREW_CASK_OPTS "--no-quarantine" " "; export HOMEBREW_CASK_OPTS
+  
+  function bcd { case "${1}" in 
+      "")     		  cd "$(brew --repository)" ;;
+      "brew") 		  cd "$(brew --repository "homebrew/homebrew-core")" ;;
+      "cask") 		  cd "$(brew --repository "homebrew/homebrew-cask")" ;;
+      "toonetown")  cd "$(brew --repository "toonetown/extras")" ;;
+      *)      		  cd "$(brew --repository "${1}")" ;;
+  esac; }
 }
