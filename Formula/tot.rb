@@ -3,10 +3,10 @@ require Pathname(__FILE__).realpath.dirname.join("../lib", "gist-formula") unles
 
 class Tot < GistFormula
   desc "A shell script for Tot (via zrzka)"
-  gist_hash "5948256ac72c3f3820aebff1fb4b1b70"
+  gist_hash "5a73a279c905a56a14b1d2f535d62dea"
   gist_file "tot"
-  gist_revision "461280a8"
-  version "7"
+  gist_revision "fa9b873c"
+  version "9"
   
   depends_on "python"
 end
