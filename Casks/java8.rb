@@ -1,6 +1,6 @@
 cask 'java8' do
-  version '8u202,b08:1961070e4c9b4e26a04e7f5a083f551e'
-  sha256 'b41367948cf99ca0b8d1571f116b7e3e322dd1ebdfd4d390e959164d75b97c20'
+  version '8u241,b07:1f5b5a70bf22433b84d0e960903adac8'
+  sha256 '57a13fca47039dcd371158c0ed3265f407ba4184fb53e9cb2a95f8ecc49154ab'
 
   url "https://download.oracle.com/otn-pub/java/jdk/#{version.before_comma}-#{version.after_comma.before_colon}/#{version.after_colon}/jdk-#{version.before_comma}-macosx-x64.dmg",
       cookies: {
@@ -11,7 +11,7 @@ cask 'java8' do
 
   depends_on macos: '>= :yosemite'
 
-  pkg 'JDK 8 Update 202.pkg'
+  pkg 'JDK 8 Update 241.pkg'
 
   uninstall pkgutil: "com.oracle.jdk#{version.before_comma}",
             delete:  [
