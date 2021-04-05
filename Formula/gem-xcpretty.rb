@@ -14,7 +14,7 @@ end
 class RubyGemsDownloadStrategy < AbstractDownloadStrategy
   include RubyBin
 
-  def fetch
+  def fetch(timeout: nil, **options)
     ohai "Fetching xcpretty from gem source"
     cache.cd do
       ENV['GEM_SPEC_CACHE'] = "#{cache}/gem_spec_cache"
