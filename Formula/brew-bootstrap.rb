@@ -6,6 +6,6 @@ class BrewBootstrap < GistFormula
   gist_hash "48101686e509fda81335"
   gist_file "homebrew-bootstrap.sh"
   install_name "brew-bootstrap"
-  gist_revision "df3d1d1c"
-  version "30"
+  gist_revision "485358e2"
+  version "31"
 end
