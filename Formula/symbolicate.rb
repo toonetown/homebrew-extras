@@ -5,6 +5,6 @@ class Symbolicate < GistFormula
   desc "A script which will help decode macOS dumps, logs, and panics"
   gist_hash "618507f37da728bbfe3f3e3490c8a550"
   gist_file "symbolicate"
-  gist_revision "acf48a17"
-  version "2"
+  gist_revision "aeed121d"
+  version "3"
 end
