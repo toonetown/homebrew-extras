@@ -5,6 +5,6 @@ class WordleSolver < GistFormula
   desc "Helps solve wordle puzzles"
   gist_hash "5b7e8c8dc47496f65d2468bc13ab507a"
   gist_file "wordle-solver"
-  gist_revision "7d17119c"
-  version "1"
+  gist_revision "12e80782"
+  version "2"
 end
