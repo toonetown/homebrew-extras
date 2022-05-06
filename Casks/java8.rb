@@ -1,8 +1,8 @@
 cask 'java8' do
-  version '8u241,b07:1f5b5a70bf22433b84d0e960903adac8'
+  version '8u241,b07,1f5b5a70bf22433b84d0e960903adac8'
   sha256 '57a13fca47039dcd371158c0ed3265f407ba4184fb53e9cb2a95f8ecc49154ab'
 
-  url "https://download.oracle.com/otn-pub/java/jdk/#{version.before_comma}-#{version.after_comma.before_colon}/#{version.after_colon}/jdk-#{version.before_comma}-macosx-x64.dmg",
+  url "https://download.oracle.com/otn-pub/java/jdk/#{version.csv.first}-#{version.csv.second}/#{version.csv.third}/jdk-#{version.csv.first}-macosx-x64.dmg",
       cookies: {
                  'oraclelicense' => 'accept-securebackup-cookie',
                }
@@ -13,7 +13,7 @@ cask 'java8' do
 
   pkg 'JDK 8 Update 241.pkg'
 
-  uninstall pkgutil: "com.oracle.jdk#{version.before_comma}",
+  uninstall pkgutil: "com.oracle.jdk#{version.csv.first}",
             delete:  [
                        '/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin',
                        '/Library/PreferencePanes/JavaControlPanel.prefPane',
