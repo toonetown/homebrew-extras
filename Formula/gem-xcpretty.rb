@@ -48,6 +48,7 @@ class GemXcpretty < Formula
   url "xcpretty", :using => RubyGemsDownloadStrategy
   version "0.3.0"
   depends_on "ruby"
+  revision 1
 
   def install
     # Copy user's RubyGems config to temporary build home.
@@ -67,6 +68,13 @@ class GemXcpretty < Formula
     if defined?(HOMEBREW_SHIMS_PATH)
       ENV['PATH'] = ENV['PATH'].sub(HOMEBREW_SHIMS_PATH.to_s, '/usr/local/bin')
     end
+
+    system "#{ruby_bin}/gem", "install", "rexml",
+             "--no-document",
+             "--no-wrapper",
+             "--no-user-install",
+             "--install-dir", prefix,
+             "--bindir", bin
 
     system "#{ruby_bin}/gem", "install", cached_download,
              "--no-document",
