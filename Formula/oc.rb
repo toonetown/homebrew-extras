@@ -10,11 +10,12 @@ class Oc < GistFormula
 
   depends_on "openconnect"
 
-  def caveats; <<~EOS
-    This script leverages sudo to work.  If you would like for this script to run without prompting for a password,
-    you can create a sudoers file by running 'sudo visudo -f /etc/sudoers.d/oc' and giving it the following contents:
-      %admin  ALL=(root) NOPASSWD: /usr/local/bin/oc
-      Defaults env_keep += "OC_CONFIG"
-  EOS
+  def caveats
+    <<~EOS
+      This script leverages sudo to work.  If you would like for this script to run without prompting for a password,
+      you can create a sudoers file by running 'sudo visudo -f /etc/sudoers.d/oc' and giving it the following contents:
+        %admin  ALL=(root) NOPASSWD: /usr/local/bin/oc
+        Defaults env_keep += "OC_CONFIG"
+    EOS
   end
 end

@@ -7,17 +7,17 @@ class ScmPrompt < GistFormula
   gist_file "scm-prompt"
   gist_revision "631a279e"
   version "2"
-  
-  def caveats; <<~EOS
-    You will want to load this script in your ~/.bash_profile as follows:
-      which scm-prompt &>/dev/null && {
-        source "$(brew --prefix scm-prompt)/bin/scm-prompt"
-        export PS1="\\[\\e[0;32m\\]\\u@\\h \\[\\e[0;34m\\]\\W\\$(_scm_prompt) \\$ \\[\\e[m\\]"
-      } || {
-        export PS1="\\[\\e[0;32m\\]\\u@\\h \\[\\e[0;34m\\]\\W \\$ \\[\\e[m\\]"
-      }
-    You can install toonetown/extras/pretty-prompt to automatically set these as an auto-exec environment
-  EOS
-  end
 
+  def caveats
+    <<~EOS
+      You will want to load this script in your ~/.bash_profile as follows:
+        which scm-prompt &>/dev/null && {
+          source "$(brew --prefix scm-prompt)/bin/scm-prompt"
+          export PS1="\\[\\e[0;32m\\]\\u@\\h \\[\\e[0;34m\\]\\W\\$(_scm_prompt) \\$ \\[\\e[m\\]"
+        } || {
+          export PS1="\\[\\e[0;32m\\]\\u@\\h \\[\\e[0;34m\\]\\W \\$ \\[\\e[m\\]"
+        }
+      You can install toonetown/extras/pretty-prompt to automatically set these as an auto-exec environment
+    EOS
+  end
 end

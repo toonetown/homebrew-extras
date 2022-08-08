@@ -4,7 +4,7 @@ class Clf2elf < Formula
   url "https://github.com/toonetown/clf2elf/archive/v1.3.tar.gz"
   sha256 "99ef2299111e3f52b6f01ea134edb4536b4e68271237760e40d34a33d38a170e"
 
-  head "https://github.com/toonetown/clf2elf.git", :branch => "master"
+  head "https://github.com/toonetown/clf2elf.git", branch: "master"
 
   depends_on "gawk"
 

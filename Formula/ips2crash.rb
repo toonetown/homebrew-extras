@@ -1,9 +1,9 @@
 class Ips2crash < Formula
-  desc "A macOS command line too to convert a .ips file to a legacy .crash log file"
+  desc "macOS command-line tool to convert a .ips file to a legacy .crash log file"
   homepage "https://github.com/packagesdev/ips2crash"
   head "https://github.com/packagesdev/ips2crash.git"
 
-  depends_on :xcode => :build
+  depends_on xcode: :build
 
   def install
     xcodebuild "-project", "tool_ips2crash/ips2crash.xcodeproj", "SYMROOT=build"

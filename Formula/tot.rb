@@ -7,6 +7,6 @@ class Tot < GistFormula
   gist_file "tot"
   gist_revision "fa9b873c"
   version "9"
-  
+
   depends_on "python"
 end

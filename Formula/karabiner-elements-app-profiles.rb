@@ -5,7 +5,7 @@ class KarabinerElementsAppProfiles < Formula
   sha256 "f12fffd5da5b7ccb9fb3179cf999bd3948e2b9243dfc671973a8de4f8db6ea61"
   head "https://github.com/nriley/Karabiner-Elements-App-Profiles.git"
 
-  depends_on :xcode => :build
+  depends_on xcode: :build
 
   def install
     xcodebuild "SYMROOT=build"
@@ -14,7 +14,7 @@ class KarabinerElementsAppProfiles < Formula
     prefix.install "net.sabi.Karabiner-Elements-App-Profiles.plist"
   end
 
-  plist_options :manual => "karabiner-elements-app-profiles"
+  plist_options manual: "karabiner-elements-app-profiles"
 
   def plist
     (prefix/"net.sabi.Karabiner-Elements-App-Profiles.plist").read
