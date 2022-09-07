@@ -4,11 +4,13 @@ class GistFormula < Formula
     raise FormulaSpecificationError, "Requires a gist_hash" unless cls.gist_hash
     raise FormulaSpecificationError, "Requires a gist_file" unless cls.gist_file
     raise FormulaSpecificationError, "Requires a gist_revision" unless cls.gist_revision
-
-    cls.homepage "https://gist.github.com/toonetown/#{cls.gist_hash}"
-    cls.url "https://gist.github.com/#{cls.gist_hash}.git", :revision => cls.gist_revision
-    cls.head "https://gist.github.com/#{cls.gist_hash}.git", :branch => "master"
-    cls.skip_clean "bin"
+    
+    if (!cls.frozen?)
+      cls.homepage "https://gist.github.com/toonetown/#{cls.gist_hash}"
+      cls.url "https://gist.github.com/#{cls.gist_hash}.git", :revision => cls.gist_revision
+      cls.head "https://gist.github.com/#{cls.gist_hash}.git", :branch => "master"
+      cls.skip_clean "bin"
+    end
 
     super
   end
