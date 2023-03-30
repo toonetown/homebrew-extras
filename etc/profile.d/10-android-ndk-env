@@ -1,0 +1,5 @@
+[ -d "${ANDROID_NDK_HOME:=$(brew --prefix)/share/android-ndk}" ] && export ANDROID_NDK_HOME && {
+	source update-env post PATH "${ANDROID_NDK_HOME}"
+}|| {
+	unset ANDROID_NDK_HOME
+}
