@@ -2,8 +2,8 @@ require 'pathname'
 require Pathname(@path).realpath.dirname.join('../lib', 'predownloaded-cask') unless defined?(predownloaded_cask)
 
 cask 'xsymbolicate' do
-  version '5'
-  sha256 '4ac8d7a5caa15fb643a1b8ce78b57c1a1ec7e523a9cd79e314f9151d416023ae'
+  version '8'
+  sha256 '2f47e38a688a3fc905348903439c30708c8accba02f81250c526f5954afbdb56'
 
   url cask_url("Xsymbolicate_#{version}.zip")
   name 'Xsymbolicate'
