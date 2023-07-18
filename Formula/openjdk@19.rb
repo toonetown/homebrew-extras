@@ -139,7 +139,7 @@ class OpenjdkAT19 < Formula
     on_macos do
       <<~EOS
         For the system Java wrappers to find this JDK, symlink it with
-          sudo ln -sfn #{opt_libexec}/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+          sudo ln -sfn #{opt_libexec}/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk@19.jdk
       EOS
     end
   end
