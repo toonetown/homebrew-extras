@@ -8,5 +8,10 @@ class ShimoAutoAlias < GistFormula
   gist_revision "57a2a6b3"
   version "2"
 
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
+
   depends_on "toonetown/extras/alias-local"
 end

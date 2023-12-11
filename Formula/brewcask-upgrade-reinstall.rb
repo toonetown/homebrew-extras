@@ -8,4 +8,9 @@ class BrewcaskUpgradeReinstall < GistFormula
   install_name "brewcask-upgrade-reinstall"
   gist_revision "28161df2"
   version "1.2"
+
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
 end

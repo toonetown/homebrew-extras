@@ -8,5 +8,10 @@ class Tot < GistFormula
   gist_revision "fa9b873c"
   version "9"
 
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
+
   depends_on "python"
 end

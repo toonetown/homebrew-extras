@@ -7,4 +7,9 @@ class WordleSolver < GistFormula
   gist_file "wordle-solver"
   gist_revision "12e80782"
   version "2"
+
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
 end

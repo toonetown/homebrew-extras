@@ -7,4 +7,8 @@ class MateEditorEnv < EnvProfileFormula
   version "1.56"
   sha256 "e6870eabbf6e95640db196e15ce0c4f2b6f76ea6855cabbb0a60fead93d9e622"
   depends_on "toonetown/extras/mate-editor"
+
+  url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
+  homepage "https://github.com/toonetown/homebrew-extras/"
+  depends_on "toonetown/extras/toonetown-extras"
 end

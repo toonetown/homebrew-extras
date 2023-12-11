@@ -8,6 +8,11 @@ class ShimoSshuttle < GistFormula
   gist_revision "e815dec9"
   version "9"
 
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
+
   depends_on "sshuttle"
 
   def caveats

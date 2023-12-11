@@ -6,4 +6,8 @@ class SshRmateEnv < EnvProfileFormula
   env_file "90-ssh-rmate-env"
   version "1.57"
   sha256 "19b4805a072b7e30c31672ef33857b308c3659984d941703dc1fb059e9fed990"
+
+  url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
+  homepage "https://github.com/toonetown/homebrew-extras/"
+  depends_on "toonetown/extras/toonetown-extras"
 end

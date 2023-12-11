@@ -7,4 +7,9 @@ class PrintCppTokens < GistFormula
   gist_file "print-cpp-tokens"
   gist_revision "83c4c2c5"
   version "1"
+
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
 end

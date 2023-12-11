@@ -7,4 +7,9 @@ class CopyDiff < GistFormula
   gist_file "copy-diff"
   gist_revision "9b02d03a"
   version "1"
+
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
 end

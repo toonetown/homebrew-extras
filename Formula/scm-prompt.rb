@@ -8,6 +8,11 @@ class ScmPrompt < GistFormula
   gist_revision "631a279e"
   version "2"
 
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
+
   def caveats
     <<~EOS
       You will want to load this script in your ~/.bash_profile as follows:

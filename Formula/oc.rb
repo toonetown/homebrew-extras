@@ -8,6 +8,11 @@ class Oc < GistFormula
   gist_revision "a362b9f9"
   version "4"
 
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
+
   depends_on "openconnect"
 
   def caveats

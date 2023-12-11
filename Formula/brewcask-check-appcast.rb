@@ -8,4 +8,9 @@ class BrewcaskCheckAppcast < GistFormula
   install_name "brewcask-check-appcast"
   gist_revision "3c9c5800"
   version "1.1"
+
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
 end

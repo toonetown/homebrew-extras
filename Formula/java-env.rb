@@ -6,4 +6,8 @@ class JavaEnv < EnvProfileFormula
   env_file "10-java-env"
   version "1.61"
   sha256 "18697d80c98c6b7959f2ac325f202990d5ebaf8f82fcb0bf9ffd36ac905175ee"
+
+  url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
+  homepage "https://github.com/toonetown/homebrew-extras/"
+  depends_on "toonetown/extras/toonetown-extras"
 end

@@ -8,6 +8,11 @@ class AliasLocal < GistFormula
   gist_revision "95c381ae"
   version "3"
 
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
+
   def caveats
     <<~EOS
       This script leverages sudo to work.  If you would like for this script to run without prompting for a password,

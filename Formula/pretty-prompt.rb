@@ -6,4 +6,8 @@ class PrettyPrompt < EnvProfileFormula
   env_file "01-pretty-prompt"
   version "1.55"
   sha256 "90e97118414e579949687e9510802c89ca7d5d4f56062c8fc02503c8fec91fe1"
+
+  url "https://raw.githubusercontent.com/toonetown/homebrew-extras/master/etc/profile.d/#{env_file}"
+  homepage "https://github.com/toonetown/homebrew-extras/"
+  depends_on "toonetown/extras/toonetown-extras"
 end

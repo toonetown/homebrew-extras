@@ -8,5 +8,10 @@ class GitP4g < GistFormula
   gist_revision "35db68da"
   version "2"
 
+  homepage "https://gist.github.com/toonetown/#{gist_hash}"
+  url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
+  head "https://gist.github.com/#{gist_hash}.git", :branch => "master"
+  skip_clean "bin"
+
   depends_on "toonetown/extras/perforce"
 end
