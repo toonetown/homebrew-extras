@@ -5,8 +5,8 @@ class Swup < GistFormula
   desc "Software updating script"
   gist_hash "65b4ab33286c584fd678eceb23365cb1"
   gist_file "swup"
-  gist_revision "f495c36f"
-  version "22"
+  gist_revision "e4eb6a60"
+  version "23"
 
   homepage "https://gist.github.com/toonetown/#{gist_hash}"
   url "https://gist.github.com/#{gist_hash}.git", :revision => gist_revision
