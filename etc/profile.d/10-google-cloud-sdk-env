@@ -1,5 +1,8 @@
+PYTHON_VER=3.11
 [ -d "${GCLOUD_DIR:=${_BREW_PFX:=$(brew --prefix)}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk}" ] && {
     export GCLOUD_DIR
     source "${GCLOUD_DIR}/path.bash.inc"
     source "${GCLOUD_DIR}/completion.bash.inc"
+    CLOUDSDK_PYTHON="$(which python${PYTHON_VER})"
+    [ -x "${CLOUDSDK_PYTHON}" ] && export CLOUDSDK_PYTHON
 }
