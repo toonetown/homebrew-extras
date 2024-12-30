@@ -1,6 +1,6 @@
 class WssaDiag < Formula
-  version "1.35"
-  sha256 "146fe459db312681a0e51817246cb8c48fd2ad95e6e2d1791ad0e95538844396"
+  version "1.36"
+  sha256 "9548509c926f0a378e675976028caf944503207659ba3c9ae7040facea8cfc69"
 
   url "https://techdocs.broadcom.com/content/dam/broadcom/techdocs/us/en/dita/symantec-security-software/web-and-network-security/web-security-service/content/wssa-macos-diags-#{version}.zip"
   desc "Shell script to gather debugging, troubleshooting, and trace log information for Symantec WSSA"
