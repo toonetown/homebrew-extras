@@ -47,7 +47,7 @@ class GemXcpretty < Formula
   desc "Fast and flexible formatter for xcodebuild"
   homepage "https://github.com/xcpretty/xcpretty"
   url "xcpretty", using: RubyGemsDownloadStrategy
-  version "0.3.0"
+  version "0.4.0"
   revision 1
   depends_on "ruby"
 
@@ -84,7 +84,7 @@ class GemXcpretty < Formula
 
     raise "gem install 'xcpretty' failed with status #{$CHILD_STATUS.exitstatus}" unless $CHILD_STATUS.success?
 
-    bin.rmtree if bin.exist?
+    FileUtils.rm_r(bin) if bin.exist?
     bin.mkpath
 
     brew_gem_prefix = prefix+"gems/xcpretty-#{version}"
