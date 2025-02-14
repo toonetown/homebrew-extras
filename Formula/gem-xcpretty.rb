@@ -47,7 +47,7 @@ class GemXcpretty < Formula
   desc "Fast and flexible formatter for xcodebuild"
   homepage "https://github.com/xcpretty/xcpretty"
   url "xcpretty", using: RubyGemsDownloadStrategy
-  version "0.4.0"
+  version "0.3.0"
   revision 1
   depends_on "ruby"
 
