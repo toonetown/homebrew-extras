@@ -9,7 +9,10 @@ class EnvProfileFormula < Formula
   end
 
   class << self
-    attr_rw :env_file
+    sig { params(val: String).returns(T.nilable(String)) }
+    def env_file(val = T.unsafe(nil))
+      val.nil? ? @env_file : @env_file= T.let(val, T.nilable(String))
+    end
   end
 end
 

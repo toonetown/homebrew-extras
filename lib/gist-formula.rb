@@ -13,7 +13,25 @@ class GistFormula < Formula
   end
 
   class << self
-    attr_rw :gist_hash, :gist_file, :gist_revision, :install_name
+    sig { params(val: String).returns(T.nilable(String)) }
+    def gist_hash(val = T.unsafe(nil))
+      val.nil? ? @gist_hash : @gist_hash= T.let(val, T.nilable(String))
+    end
+
+    sig { params(val: String).returns(T.nilable(String)) }
+    def gist_file(val = T.unsafe(nil))
+      val.nil? ? @gist_file : @gist_file= T.let(val, T.nilable(String))
+    end
+
+    sig { params(val: String).returns(T.nilable(String)) }
+    def gist_revision(val = T.unsafe(nil))
+      val.nil? ? @gist_revision : @gist_revision= T.let(val, T.nilable(String))
+    end
+
+    sig { params(val: String).returns(T.nilable(String)) }
+    def install_name(val = T.unsafe(nil))
+      val.nil? ? @install_name : @install_name= T.let(val, T.nilable(String))
+    end 
   end
 end
 
