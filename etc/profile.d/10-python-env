@@ -1,0 +1,30 @@
+which brew >/dev/null && {
+  _python_versions() {
+    brew list 2>/dev/null | sed -nE 's/^python@([0-9\.]+)$/\1/p' | sort -t. -k1,1n -k2,2n
+  }
+  _python_select() {
+    local _pfx="$(brew --prefix "python@${1}" 2>/dev/null)"
+    [ -d "${_pfx}/libexec/bin" ] || return 1
+    [ -n "${_PYTHON_BIN}" ] && source update-env del PATH "${_PYTHON_BIN}"
+    export _PYTHON_BIN="${_pfx}/libexec/bin"
+    export PYTHON_VERSION="${1}"
+    export PATH="${_PYTHON_BIN}:${PATH}"
+  }
+
+  _python_select "${PYTHON_VERSION:-$(_python_versions | tail -n 1)}"
+
+  [ -z "$BASH_VERSION" -o -z "$PS1" -o "${BASH-no}" != "/bin/bash" ] && return
+  use-python() {
+    [ -n "${1}" ] || {
+      echo "Usage: use-python <version>" >&2
+      echo "" >&2
+      echo "Available versions:" >&2
+      _python_versions | sed -E 's/^/    /' >&2
+      return 1
+    }
+    _python_select "${1}" || {
+      echo "Python version ${1} is not installed" >&2
+      return 1
+    }
+  }
+}
